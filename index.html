@@ -1,1359 +1,635 @@
 <!doctype html>
 <html lang="sr">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Caparicki webshop</title>
-  <meta name="description" content="Caparicki webshop – Natin, Ikanov, Milin i Lukin ducan :)(squishy)."/>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Caparicki Webshop</title>
 
-  <style>
-    :root{
-      --bg0:#060817;
-      --bg1:#0b1130;
-      --card: rgba(255,255,255,.08);
-      --card2: rgba(255,255,255,.11);
-      --stroke: rgba(255,255,255,.14);
-      --text:#f3f5ff;
-      --muted: rgba(243,245,255,.78);
-      --shadow: 0 18px 55px rgba(0,0,0,.45);
+<style>
+:root{
+  --bg1:#0e1028;
+  --bg2:#151a44;
+  --card:#1d245a;
+  --accent:#7c5cff;
+  --accent2:#34d399;
+  --pink:#ff6bd6;
+  --yellow:#ffd166;
+  --text:#ffffff;
+  --muted:#c9cff8;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
+  background:
+    radial-gradient(900px 500px at 20% -10%, rgba(124,92,255,.35), transparent 60%),
+    radial-gradient(900px 500px at 80% 0%, rgba(52,211,153,.25), transparent 60%),
+    radial-gradient(900px 500px at 50% 120%, rgba(255,107,214,.18), transparent 60%),
+    linear-gradient(180deg,var(--bg1),var(--bg2));
+  color:var(--text);
+  overflow-x:hidden;
+}
+.wrap{max-width:1020px;margin:auto;padding:16px}
 
-      --p1:#7c5cff;
-      --p2:#34d399;
-      --p3:#ff6bd6;
-      --p4:#ffd166;
-      --p5:#4dd3ff;
-      --radius: 22px;
+header{
+  display:flex;justify-content:space-between;align-items:center;gap:12px;
+  padding:14px;border-radius:22px;
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.15);
+  backdrop-filter: blur(10px);
+}
+header h1{margin:0;font-size:18px}
+.small{font-size:12px;color:var(--muted);font-weight:800}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
 
-      --good:#34d399;
-      --warn:#ffd166;
-      --bad:#ff6b6b;
-    }
+.btn{
+  border:0;border-radius:14px;
+  padding:10px 14px;
+  font-weight:1000;
+  cursor:pointer;
+  transition:transform .12s ease, filter .12s ease;
+}
+.btn:hover{transform:translateY(-1px);filter:brightness(1.02)}
+.btn-main{background:linear-gradient(135deg,var(--accent),var(--pink));color:#060a18}
+.btn-green{background:linear-gradient(135deg,var(--accent2),#a6ffd8);color:#07102a}
+.btn-ghost{background:rgba(255,255,255,.08);color:var(--text);border:1px solid rgba(255,255,255,.14)}
 
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
-      color: var(--text);
-      background:
-        radial-gradient(1200px 900px at 10% -10%, rgba(124,92,255,.35), transparent 60%),
-        radial-gradient(900px 650px at 90% 0%, rgba(52,211,153,.25), transparent 60%),
-        radial-gradient(900px 650px at 50% 120%, rgba(255,107,214,.18), transparent 60%),
-        linear-gradient(180deg, var(--bg0), var(--bg1));
-      overflow-x:hidden;
-    }
+.chip{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:8px 10px;border-radius:999px;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.14);
+  font-weight:900
+}
 
-    /* floating blobs */
-    .blob{
-      position:fixed; z-index:-1; filter: blur(18px);
-      opacity:.65; border-radius: 999px;
-      animation: floaty 10s ease-in-out infinite;
-    }
-    .b1{ width:320px;height:320px; left:-80px; top:120px; background: rgba(255,107,214,.35); }
-    .b2{ width:360px;height:360px; right:-120px; top:180px; background: rgba(77,211,255,.30); animation-duration: 12s;}
-    .b3{ width:420px;height:420px; left:35%; bottom:-200px; background: rgba(52,211,153,.25); animation-duration: 14s;}
-    @keyframes floaty{
-      0%,100%{ transform: translateY(0) translateX(0) scale(1); }
-      50%{ transform: translateY(-18px) translateX(14px) scale(1.05); }
-    }
+.hero{
+  margin-top:14px;
+  padding:16px;
+  border-radius:22px;
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.15);
+}
+.hero h2{margin:0 0 6px;font-size:22px}
+.progress{
+  margin-top:10px;
+  padding:12px;
+  border-radius:18px;
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.14);
+}
+.bar{
+  margin-top:8px;height:12px;border-radius:999px;
+  background:rgba(255,255,255,.10);
+  border:1px solid rgba(255,255,255,.12);
+  overflow:hidden;
+}
+.bar i{
+  display:block;height:100%;
+  width:0%;
+  background:linear-gradient(90deg,var(--accent2),#4dd3ff,var(--accent));
+  transition:width .2s ease;
+}
+.lesson{
+  margin-top:10px;
+  padding:12px;border-radius:18px;
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.12);
+  color:rgba(255,255,255,.92);
+  font-weight:900;
+  line-height:1.35;
+  font-size:12.5px;
+}
+.lesson b{color:#fff}
+.tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.tag{
+  font-size:11px;font-weight:1100;
+  padding:6px 10px;border-radius:999px;
+  border:1px solid rgba(255,255,255,.14);
+  background:rgba(255,255,255,.06);
+  color:var(--muted)
+}
 
-    .wrap{max-width:1120px;margin:0 auto;padding:18px 16px 30px;}
+.controls{
+  margin-top:12px;
+  display:grid;
+  grid-template-columns: 1fr auto;
+  gap:10px;
+}
+input{
+  width:100%; padding:12px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.14);
+  background:rgba(255,255,255,.06);
+  color:var(--text);
+  font-weight:900;
+}
 
-    /* Topbar */
-    .topbar{
-      position:sticky; top:12px; z-index:20;
-      display:flex; align-items:center; justify-content:space-between; gap:12px;
-      padding:12px 14px;
-      border-radius: 26px;
-      background: rgba(12,16,44,.55);
-      border:1px solid rgba(255,255,255,.12);
-      backdrop-filter: blur(12px);
-      box-shadow: 0 10px 30px rgba(0,0,0,.28);
-    }
-    .brand{display:flex;align-items:center;gap:10px;min-width:0}
-    .logo{
-      width:44px;height:44px;border-radius:16px; position:relative; flex:0 0 auto;
-      background:
-        radial-gradient(circle at 30% 25%, rgba(255,255,255,.75), transparent 42%),
-        conic-gradient(from 210deg, var(--p1), var(--p2), var(--p3), var(--p5), var(--p1));
-      box-shadow: 0 18px 44px rgba(124,92,255,.35);
-    }
-    .logo:after{
-      content:""; position:absolute; inset:11px;
-      border-radius:12px; background: rgba(6,8,23,.55);
-      border:1px solid rgba(255,255,255,.12);
-    }
-    .brand h1{margin:0;font-size:15px;font-weight:1000;letter-spacing:.2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .brand small{display:block;margin-top:2px;color:var(--muted);font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.grid{
+  margin-top:16px;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+}
+@media (max-width:980px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:520px){.grid{grid-template-columns:1fr}}
 
-    .right{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end}
-    .chip{
-      display:inline-flex;align-items:center;gap:8px;
-      padding:10px 12px;border-radius:999px;
-      background: rgba(255,255,255,.06);
-      border:1px solid rgba(255,255,255,.12);
-      font-weight:950;
-      user-select:none;
-    }
-    .count{
-      padding:2px 10px;border-radius:999px;
-      background: rgba(124,92,255,.25);
-      border:1px solid rgba(124,92,255,.55);
-    }
+.card{
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.15);
+  border-radius:18px;
+  overflow:hidden;
+  transition:transform .15s ease, border-color .15s ease;
+}
+.card:hover{transform:translateY(-4px);border-color:rgba(124,92,255,.45)}
+.img{
+  height:170px;
+  background:linear-gradient(135deg,rgba(124,92,255,.3),rgba(52,211,153,.25));
+  display:flex;align-items:center;justify-content:center;
+  position:relative;
+}
+.img img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(1.05) contrast(1.02)}
+.badge{
+  position:absolute; top:10px; left:10px;
+  padding:6px 10px;border-radius:999px;
+  background:rgba(0,0,0,.35);
+  border:1px solid rgba(255,255,255,.18);
+  font-weight:1000; font-size:11px;
+}
+.ph{
+  background:#fff;color:#0e1028;
+  padding:8px 12px;border-radius:999px;
+  font-weight:1100;
+}
+.c{padding:12px}
+.c h3{margin:0;font-size:15px;font-weight:1200}
+.desc{font-size:12.5px;color:var(--muted);margin:6px 0;line-height:1.35;font-weight:850}
+.price{font-weight:1300;margin-bottom:8px}
 
-    .btn{
-      border:0; cursor:pointer; user-select:none;
-      padding:10px 12px;border-radius:16px;
-      font-weight:1000;
-      color:#08102a;
-      background: linear-gradient(135deg, var(--p2), #a6ffd8);
-      box-shadow: 0 16px 44px rgba(52,211,153,.18);
-      transition: transform .12s ease, filter .12s ease;
-    }
-    .btn:hover{transform: translateY(-1px); filter: brightness(1.03)}
-    .btn.secondary{
-      color: var(--text);
-      background: rgba(255,255,255,.08);
-      border:1px solid rgba(255,255,255,.14);
-      box-shadow:none;
-    }
+.actions{display:flex;gap:8px}
+.actions button{flex:1}
 
-    /* Hero */
-    .hero{
-      margin-top:14px;
-      border-radius: 32px;
-      padding:18px;
-      background:
-        radial-gradient(900px 380px at 15% 20%, rgba(124,92,255,.22), transparent 60%),
-        radial-gradient(900px 380px at 85% 30%, rgba(52,211,153,.18), transparent 60%),
-        linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
-      border:1px solid rgba(255,255,255,.14);
-      box-shadow: var(--shadow);
-      position:relative;
-      overflow:hidden;
-    }
-    .heroGrid{
-      display:grid;
-      grid-template-columns: 1.1fr .9fr;
-      gap:16px;
-      align-items:start;
-    }
-    @media (max-width: 980px){ .heroGrid{grid-template-columns:1fr} }
-    .hero h2{
-      margin:0 0 8px 0;
-      font-size: 30px;
-      line-height:1.05;
-      letter-spacing:.2px;
-      font-weight:1100;
-    }
-    .hero p{
-      margin:0;
-      color: var(--muted);
-      font-weight:800;
-      line-height:1.45;
-      font-size: 14.5px;
-    }
+.cartBtn{
+  position:fixed;right:16px;bottom:16px;
+  z-index:20;
+  box-shadow:0 18px 45px rgba(0,0,0,.35);
+}
 
-    .stickers{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
-    .sticker{
-      display:inline-flex;align-items:center;gap:8px;
-      padding:8px 10px;border-radius:999px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.06);
-      font-weight:1000;
-      font-size: 12px;
-    }
-    .dot{width:10px;height:10px;border-radius:50%;}
-    .d1{background: var(--p4); box-shadow:0 0 0 6px rgba(255,209,102,.12)}
-    .d2{background: var(--p3); box-shadow:0 0 0 6px rgba(255,107,214,.12)}
-    .d3{background: var(--p2); box-shadow:0 0 0 6px rgba(52,211,153,.12)}
+.cartBG{
+  position:fixed;inset:0;
+  background:rgba(0,0,0,.6);
+  display:none;
+  z-index:40;
+}
+.cart{
+  position:absolute;right:0;top:0;
+  width:92%;max-width:380px;height:100%;
+  background:#0f1538;
+  padding:14px;
+  border-left:1px solid rgba(255,255,255,.14);
+}
+.item{
+  border:1px solid rgba(255,255,255,.14);
+  background:rgba(255,255,255,.04);
+  border-radius:14px;
+  padding:10px;
+  margin:10px 0;
+}
+.itemTop{display:flex;justify-content:space-between;gap:10px;font-weight:1100}
+.itemSmall{color:var(--muted);font-weight:900;font-size:12px;margin-top:4px}
+.qty{display:flex;gap:8px;margin-top:8px}
+.qbtn{
+  width:32px;height:32px;border-radius:12px;
+  border:1px solid rgba(255,255,255,.14);
+  background:rgba(255,255,255,.06);
+  color:var(--text);font-weight:1200;cursor:pointer;
+}
 
-    .panel{
-      border-radius: 26px;
-      padding:14px;
-      background: rgba(12,16,44,.55);
-      border:1px solid rgba(255,255,255,.12);
-      position:relative;
-      overflow:hidden;
-    }
-    .panel .shine{
-      position:absolute; inset:-80px -80px auto auto;
-      width:220px;height:220px;border-radius:50%;
-      background: radial-gradient(circle at 35% 35%, rgba(255,255,255,.6), rgba(255,255,255,0) 55%);
-      opacity:.25;
-      transform: rotate(25deg);
-    }
+.footer{text-align:center;margin-top:16px;font-size:12px;color:var(--muted);font-weight:850}
 
-    /* Progress / Level */
-    .xpBox{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap:10px;
-      margin-top:10px;
-    }
-    .lvlRow{
-      display:flex; justify-content:space-between; align-items:center; gap:10px;
-      padding:12px; border-radius:18px;
-      background: rgba(255,255,255,.06);
-      border:1px solid rgba(255,255,255,.12);
-    }
-    .lvlLeft b{font-size:13px;font-weight:1200}
-    .lvlLeft div{color:var(--muted); font-weight:950; font-size:12px; margin-top:4px}
-    .lvlBadge{
-      padding:8px 10px; border-radius:999px;
-      background: rgba(124,92,255,.25);
-      border:1px solid rgba(124,92,255,.55);
-      font-weight:1200; font-size:12px;
-      white-space:nowrap;
-    }
-    .bar{
-      height:12px;border-radius:999px;
-      background: rgba(255,255,255,.08);
-      border:1px solid rgba(255,255,255,.12);
-      overflow:hidden;
-    }
-    .bar > i{
-      display:block; height:100%;
-      width:20%;
-      background: linear-gradient(90deg, var(--p2), var(--p5), var(--p1));
-      border-radius:999px;
-      transition: width .25s ease;
-    }
+/* Toast */
+.toastHost{position:fixed;right:14px;bottom:86px;z-index:60;display:flex;flex-direction:column;gap:10px;pointer-events:none}
+.toast{
+  pointer-events:none;
+  width:min(380px,92vw);
+  border-radius:18px;
+  padding:12px;
+  background:rgba(10,14,34,.92);
+  border:1px solid rgba(255,255,255,.14);
+  box-shadow:0 18px 55px rgba(0,0,0,.35);
+  opacity:0; transform:translateY(10px);
+  animation:toastIn .22s ease forwards;
+}
+@keyframes toastIn{to{opacity:1;transform:translateY(0)}}
+.toastTop{display:flex;justify-content:space-between;gap:10px;align-items:center}
+.toastTitle{font-weight:1200}
+.pill{padding:6px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);color:var(--muted);font-weight:1100;font-size:11px}
+.toastBody{margin-top:6px;color:rgba(255,255,255,.86);font-weight:900;font-size:12.5px;line-height:1.35}
 
-    .lesson{
-      margin-top:10px;
-      padding:12px; border-radius:18px;
-      background: rgba(255,255,255,.05);
-      border:1px solid rgba(255,255,255,.12);
-      color: rgba(243,245,255,.88);
-      font-weight:900;
-      line-height:1.35;
-      font-size:12.5px;
-    }
-    .lesson b{color:#fff}
-    .lesson .tag{
-      display:inline-flex; align-items:center; gap:8px;
-      margin-top:8px;
-      padding:7px 10px; border-radius:999px;
-      background: rgba(255,255,255,.06);
-      border:1px solid rgba(255,255,255,.12);
-      font-weight:1100;
-      font-size:11px;
-      color: var(--muted);
-    }
-    .tagGood{border-color: rgba(52,211,153,.35); color: rgba(52,211,153,.95)}
-    .tagWarn{border-color: rgba(255,209,102,.35); color: rgba(255,209,102,.95)}
-    .tagBad{border-color: rgba(255,107,107,.35); color: rgba(255,107,107,.95)}
-
-    /* Controls */
-    .controls{
-      margin-top:14px;
-      display:grid;
-      grid-template-columns: 1.3fr 1fr auto;
-      gap:10px;
-    }
-    input, select{
-      width:100%;
-      padding:12px 12px;
-      border-radius: 16px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.06);
-      color: var(--text);
-      outline:none;
-      font-weight:900;
-    }
-    input::placeholder{color: rgba(243,245,255,.70); font-weight:800}
-    @media (max-width: 900px){ .controls{grid-template-columns:1fr} }
-
-    /* Grid */
-    .grid{
-      margin-top:14px;
-      display:grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap:12px;
-    }
-    @media (max-width: 980px){ .grid{grid-template-columns: repeat(2, 1fr)} }
-    @media (max-width: 520px){ .grid{grid-template-columns: 1fr} }
-
-    .card{
-      border-radius: var(--radius);
-      overflow:hidden;
-      background: rgba(255,255,255,.07);
-      border:1px solid rgba(255,255,255,.14);
-      box-shadow: 0 12px 30px rgba(0,0,0,.22);
-      transition: transform .12s ease, border-color .12s ease;
-      position:relative;
-    }
-    .card:hover{transform: translateY(-2px); border-color: rgba(124,92,255,.42)}
-    .img{
-      height: 170px;
-      background:
-        radial-gradient(circle at 30% 25%, rgba(255,255,255,.55), transparent 45%),
-        linear-gradient(135deg, rgba(124,92,255,.28), rgba(52,211,153,.22));
-      display:flex; align-items:center; justify-content:center;
-      position:relative;
-    }
-    .img img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(1.08) contrast(1.03)}
-    .ph{
-      padding:8px 10px;border-radius:999px;
-      background: rgba(255,255,255,.72);
-      border: 1px solid rgba(255,255,255,.9);
-      color: rgba(6,8,23,.92);
-      font-weight:1100;
-      letter-spacing:.3px;
-    }
-    .badgeCorner{
-      position:absolute; top:10px; left:10px;
-      padding:6px 10px; border-radius:999px;
-      border:1px solid rgba(255,255,255,.18);
-      background: rgba(6,8,23,.35);
-      backdrop-filter: blur(8px);
-      font-weight:1100;
-      font-size: 11px;
-    }
-
-    .c{padding:12px}
-    .row{display:flex; align-items:flex-start; justify-content:space-between; gap:10px}
-    .name{margin:0; font-size:14px; font-weight:1100; line-height:1.15}
-    .desc{margin:8px 0 10px 0; color: var(--muted); font-weight:850; font-size:12.5px; line-height:1.35}
-    .price{font-weight:1200; font-size:15px}
-    .actions{display:flex; gap:10px; margin-top:10px}
-    .add{
-      flex:1;
-      border:0; cursor:pointer;
-      padding:10px 12px;border-radius:16px;
-      font-weight:1200;
-      color:#070a16;
-      background: linear-gradient(135deg, var(--p1), var(--p3));
-      box-shadow: 0 16px 40px rgba(124,92,255,.16);
-      transition: transform .12s ease, filter .12s ease;
-    }
-    .add:hover{transform: translateY(-1px); filter: brightness(1.03)}
-    .details{
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.06);
-      color: var(--text);
-      padding:10px 12px;border-radius:16px;
-      cursor:pointer;
-      font-weight:1100;
-    }
-
-    /* Drawer cart */
-    .backdrop{
-      position:fixed; inset:0;
-      background: rgba(0,0,0,.55);
-      display:none;
-      z-index:50;
-    }
-    .drawer{
-      position:fixed; top:0; right:0; height:100%;
-      width:min(420px, 92vw);
-      background: rgba(10,14,34,.96);
-      border-left:1px solid rgba(255,255,255,.14);
-      box-shadow: -18px 0 60px rgba(0,0,0,.35);
-      transform: translateX(105%);
-      transition: transform .18s ease;
-      z-index:60;
-      display:flex; flex-direction:column;
-    }
-    .drawer.open{transform: translateX(0)}
-    .dhead{
-      display:flex; align-items:center; justify-content:space-between;
-      padding:14px;
-      border-bottom:1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.04);
-    }
-    .x{
-      width:38px;height:38px;border-radius:14px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.06);
-      color:var(--text);
-      cursor:pointer;
-      font-weight:1100;
-    }
-    .items{padding:12px; overflow:auto; flex:1}
-    .item{
-      display:grid; grid-template-columns: 54px 1fr auto;
-      gap:10px; align-items:center;
-      padding:10px; border-radius:18px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.04);
-      margin-bottom:10px;
-    }
-    .mini{
-      width:54px;height:54px;border-radius:16px; overflow:hidden;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.06);
-      display:flex; align-items:center; justify-content:center;
-      font-weight:1100; color: rgba(243,245,255,.80);
-    }
-    .mini img{width:100%;height:100%;object-fit:cover;display:block}
-    .ititle{font-weight:1100; font-size:13px; margin:0 0 4px 0}
-    .iprice{color: var(--muted); font-weight:950; font-size:12px}
-    .qty{display:flex; align-items:center; gap:8px; justify-content:flex-end}
-    .qbtn{
-      width:32px;height:32px;border-radius:12px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.06);
-      color:var(--text);
-      cursor:pointer;
-      font-weight:1200;
-    }
-    .sum{
-      padding:12px 14px;
-      border-top:1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.04);
-    }
-    .sumrow{display:flex; justify-content:space-between; align-items:center; margin:8px 0}
-    .sumrow span{color: var(--muted); font-weight:1100}
-    .checkout{
-      width:100%;
-      border:0; cursor:pointer;
-      padding:12px 14px;border-radius:18px;
-      font-weight:1200;
-      color:#070a16;
-      background: linear-gradient(135deg, var(--p2), #a6ffd8);
-      margin-top:10px;
-    }
-    .note{margin:10px 0 0; color: rgba(243,245,255,.75); font-weight:850; font-size:12px; line-height:1.35}
-
-    /* Modal details */
-    .modalbg{
-      position:fixed; inset:0;
-      background: rgba(0,0,0,.60);
-      display:none; align-items:center; justify-content:center;
-      padding:16px; z-index:70;
-    }
-    .modal{
-      width:min(860px, 100%);
-      border-radius: 26px;
-      background: rgba(10,14,34,.96);
-      border:1px solid rgba(255,255,255,.14);
-      box-shadow: var(--shadow);
-      overflow:hidden;
-    }
-    .mhead{
-      display:flex; align-items:center; justify-content:space-between;
-      padding:14px;
-      border-bottom:1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.04);
-    }
-    .mbody{
-      display:grid; grid-template-columns: 1fr 1fr;
-      gap:14px; padding:14px;
-    }
-    @media (max-width: 820px){ .mbody{grid-template-columns:1fr} }
-    .mimg{
-      height:280px;
-      border-radius: 22px;
-      overflow:hidden;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.06);
-      display:flex; align-items:center; justify-content:center;
-    }
-    .mimg img{width:100%;height:100%;object-fit:cover;display:block}
-    .minfo{
-      border-radius: 22px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.04);
-      padding:12px;
-    }
-    .minfo h3{margin:0 0 6px 0; font-weight:1200}
-    .meta{display:flex; gap:8px; flex-wrap:wrap; margin:8px 0 10px 0}
-    .pill{
-      font-size:11px; font-weight:1100;
-      padding:6px 10px; border-radius:999px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.06);
-      color: var(--muted);
-    }
-
-    /* Mascots */
-    .mascotWrap{display:flex; gap:10px; align-items:center; justify-content:flex-end; flex-wrap:wrap}
-    .mascot{
-      width:96px; height:72px; flex:0 0 auto;
-      border-radius: 22px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.06);
-      backdrop-filter: blur(8px);
-      box-shadow: 0 10px 24px rgba(0,0,0,.18);
-      overflow:hidden;
-      position:relative;
-      animation: bop 1.6s ease-in-out infinite;
-    }
-    .mascot:nth-child(2){animation-delay:.2s}
-    .mascot:nth-child(3){animation-delay:.4s}
-    @keyframes bop{
-      0%,100%{transform: translateY(0)}
-      50%{transform: translateY(-2px)}
-    }
-
-    .footer{
-      margin:18px 0 6px;
-      text-align:center;
-      color: rgba(243,245,255,.70);
-      font-weight:850;
-      font-size:12px;
-    }
-
-    /* Confetti */
-    .confetti{
-      position:fixed; inset:0; pointer-events:none; z-index:80;
-      overflow:hidden; display:none;
-    }
-    .confetti i{
-      position:absolute; width:10px; height:14px; border-radius:4px;
-      opacity:.95;
-      animation: fall 900ms linear forwards;
-      transform: translateY(-20px) rotate(0deg);
-    }
-    @keyframes fall{
-      to{ transform: translateY(110vh) rotate(420deg); opacity:1; }
-    }
-
-    /* Toast */
-    .toastHost{
-      position:fixed; z-index:90; right:14px; bottom:14px;
-      display:flex; flex-direction:column; gap:10px;
-      pointer-events:none;
-    }
-    .toast{
-      pointer-events:none;
-      width:min(380px, 92vw);
-      border-radius:18px;
-      padding:12px 12px;
-      background: rgba(10,14,34,.92);
-      border:1px solid rgba(255,255,255,.14);
-      box-shadow: 0 18px 55px rgba(0,0,0,.38);
-      transform: translateY(10px);
-      opacity:0;
-      animation: toastIn 220ms ease forwards;
-    }
-    @keyframes toastIn{
-      to{transform: translateY(0); opacity:1}
-    }
-    .toastTop{display:flex; align-items:center; justify-content:space-between; gap:10px}
-    .toastTitle{font-weight:1200}
-    .toastBody{margin-top:6px; color:rgba(243,245,255,.82); font-weight:900; line-height:1.35; font-size:12.5px}
-    .toastPill{
-      font-size:11px; font-weight:1200;
-      padding:6px 10px; border-radius:999px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.06);
-      color: var(--muted);
-      white-space:nowrap;
-    }
-
-    /* Reduced motion */
-    @media (prefers-reduced-motion: reduce){
-      .blob,.mascot{animation:none}
-      .card:hover,.btn:hover,.add:hover{transform:none}
-    }
-  </style>
+/* Confetti */
+.confetti{position:fixed;inset:0;pointer-events:none;z-index:80;display:none;overflow:hidden}
+.confetti i{position:absolute;width:10px;height:14px;border-radius:4px;opacity:.95;animation:fall 950ms linear forwards;transform:translateY(-20px) rotate(0deg)}
+@keyframes fall{to{transform:translateY(110vh) rotate(420deg);opacity:1}}
+</style>
 </head>
 
 <body>
-  <div class="blob b1"></div>
-  <div class="blob b2"></div>
-  <div class="blob b3"></div>
+<div class="wrap">
 
-  <div class="wrap">
-    <header class="topbar">
-      <div class="brand">
-        <div class="logo" aria-hidden="true"></div>
-        <div style="min-width:0">
-          <h1 id="shopName">Caparicki webshop</h1>
-          <small id="shopSub">Za klince • Squishy • Nauči kako radi trgovina</small>
-        </div>
+<header>
+  <div>
+    <h1>Caparicki Webshop</h1>
+    <div class="small">Igra • Kupovina • Učenje (nema pravog plaćanja)</div>
+  </div>
+  <div class="row">
+    <span class="chip">⭐ XP: <b id="xp">0</b></span>
+    <span class="chip">🏆 Bedž: <b id="badge">Početnik</b></span>
+  </div>
+</header>
+
+<section class="hero">
+  <h2>Izaberi pametno 🧠</h2>
+  <p class="small">Dobijaš XP kad dodaješ/menjaš korpu. Cilj: učiš budžet i račun (cena × količina).</p>
+
+  <div class="progress">
+    <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap">
+      <div style="font-weight:1000">LEVEL <span id="level">1</span> • do sledećeg: <span id="need">100</span> XP</div>
+      <button class="btn btn-ghost" onclick="nextLesson()">Nova mini lekcija</button>
+    </div>
+    <div class="bar" aria-label="XP bar"><i id="barFill"></i></div>
+
+    <div class="lesson" id="lesson">
+      <b>Mini lekcija:</b> Pre kupovine pitaj se: “Da li mi se samo sviđa ili mi stvarno treba?”
+      <div class="tags">
+        <div class="tag">Tip: napravi budžet i drži ga se</div>
+        <div class="tag">Tip: uporedi 2 opcije</div>
       </div>
+    </div>
 
-      <div class="right">
-        <div class="chip" title="Broj proizvoda u korpi">
-          Korpa <span class="count" id="cartCount">0</span>
-        </div>
-        <button class="btn secondary" id="openCart">Otvori korpu</button>
-      </div>
-    </header>
-
-    <section class="hero">
-      <div class="heroGrid">
-        <div>
-          <h2>Caparicki webshop: <br/>klikni, izaberi, nauči.</h2>
-          <p>
-            Ovo je edukativni mini-shop: učiš šta je proizvod, cena, korpa i porudžbina.
-            Nema kartica i nema pravog plaćanja — porudžbina ide roditelju kao poruka.
-          </p>
-
-          <div class="stickers">
-            <span class="sticker"><span class="dot d1"></span> Igrica mod</span>
-            <span class="sticker"><span class="dot d2"></span> Level up</span>
-            <span class="sticker"><span class="dot d3"></span> Mobile friendly</span>
-          </div>
-
-          <div class="controls" style="margin-top:14px;">
-            <input id="q" placeholder="Pretraga (npr. kapibara, donut, boba)" />
-            <select id="sort">
-              <option value="popular">Sort: preporučeno</option>
-              <option value="cheap">Cena: niža → viša</option>
-              <option value="expensive">Cena: viša → niža</option>
-              <option value="name">Naziv: A → Z</option>
-            </select>
-            <button class="btn" id="scrollShop">Ponuda</button>
-          </div>
-        </div>
-
-        <div class="panel">
-          <div class="shine" aria-hidden="true"></div>
-
-          <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:10px;">
-            <div style="font-weight:1100;">Tvoj napredak</div>
-            <div class="mascotWrap" aria-label="Crtani likovi">
-              <div class="mascot" title="Kapibara">
-                <svg viewBox="0 0 160 120" width="96" height="72" aria-hidden="true">
-                  <defs><linearGradient id="g1" x1="0" x2="1">
-                    <stop offset="0" stop-color="#7c5cff"/><stop offset="1" stop-color="#ff6bd6"/>
-                  </linearGradient></defs>
-                  <rect x="0" y="0" width="160" height="120" rx="26" fill="rgba(255,255,255,.03)"/>
-                  <circle cx="56" cy="58" r="28" fill="url(#g1)"/>
-                  <circle cx="100" cy="58" r="28" fill="#34d399" opacity=".9"/>
-                  <circle cx="68" cy="56" r="8" fill="#fff"/>
-                  <circle cx="92" cy="56" r="8" fill="#fff"/>
-                  <circle cx="70" cy="58" r="3" fill="#0b1130"/>
-                  <circle cx="94" cy="58" r="3" fill="#0b1130"/>
-                  <path d="M78 74c8 8 16 8 24 0" stroke="#0b1130" stroke-width="6" stroke-linecap="round" fill="none"/>
-                  <circle cx="44" cy="40" r="6" fill="#ffd166"/>
-                  <circle cx="116" cy="40" r="6" fill="#4dd3ff"/>
-                </svg>
-              </div>
-              <div class="mascot" title="Donut">
-                <svg viewBox="0 0 160 120" width="96" height="72" aria-hidden="true">
-                  <defs><linearGradient id="g2" x1="0" x2="1">
-                    <stop offset="0" stop-color="#ffd166"/><stop offset="1" stop-color="#ff6bd6"/>
-                  </linearGradient></defs>
-                  <rect x="0" y="0" width="160" height="120" rx="26" fill="rgba(255,255,255,.03)"/>
-                  <circle cx="80" cy="60" r="34" fill="url(#g2)"/>
-                  <circle cx="80" cy="60" r="14" fill="rgba(10,14,34,.96)"/>
-                  <circle cx="66" cy="56" r="6" fill="#fff"/>
-                  <circle cx="94" cy="56" r="6" fill="#fff"/>
-                  <circle cx="68" cy="58" r="2.5" fill="#0b1130"/>
-                  <circle cx="96" cy="58" r="2.5" fill="#0b1130"/>
-                  <path d="M68 76c8 6 16 6 24 0" stroke="#0b1130" stroke-width="6" stroke-linecap="round" fill="none"/>
-                  <circle cx="52" cy="40" r="4" fill="#34d399"/>
-                  <circle cx="104" cy="38" r="4" fill="#4dd3ff"/>
-                  <circle cx="110" cy="78" r="4" fill="#7c5cff"/>
-                  <circle cx="50" cy="80" r="4" fill="#ff6bd6"/>
-                </svg>
-              </div>
-              <div class="mascot" title="Boba">
-                <svg viewBox="0 0 160 120" width="96" height="72" aria-hidden="true">
-                  <defs><linearGradient id="g3" x1="0" x2="1">
-                    <stop offset="0" stop-color="#4dd3ff"/><stop offset="1" stop-color="#7c5cff"/>
-                  </linearGradient></defs>
-                  <rect x="0" y="0" width="160" height="120" rx="26" fill="rgba(255,255,255,.03)"/>
-                  <rect x="54" y="28" width="52" height="66" rx="18" fill="url(#g3)"/>
-                  <rect x="58" y="32" width="44" height="42" rx="14" fill="rgba(255,255,255,.35)"/>
-                  <rect x="76" y="14" width="8" height="18" rx="4" fill="#ffd166"/>
-                  <circle cx="68" cy="84" r="6" fill="#0b1130" opacity=".9"/>
-                  <circle cx="80" cy="88" r="6" fill="#0b1130" opacity=".9"/>
-                  <circle cx="92" cy="84" r="6" fill="#0b1130" opacity=".9"/>
-                  <circle cx="72" cy="56" r="6" fill="#fff"/>
-                  <circle cx="88" cy="56" r="6" fill="#fff"/>
-                  <circle cx="74" cy="58" r="2.5" fill="#0b1130"/>
-                  <circle cx="90" cy="58" r="2.5" fill="#0b1130"/>
-                  <path d="M72 72c6 6 10 6 16 0" stroke="#0b1130" stroke-width="6" stroke-linecap="round" fill="none"/>
-                </svg>
-              </div>
-            </div>
-          </div>
-
-          <div class="xpBox">
-            <div class="lvlRow">
-              <div class="lvlLeft">
-                <b>Nivo <span id="lvl">1</span> • XP <span id="xp">0</span>/<span id="xpNeed">100</span></b>
-                <div id="badgeLine">Bedž: Početnik kupac</div>
-              </div>
-              <div class="lvlBadge" id="lvlBadge">POČETNIK</div>
-            </div>
-            <div class="bar" aria-label="XP bar"><i id="barFill"></i></div>
-
-            <div class="lesson" id="lessonBox">
-              <b>Mini lekcija:</b> Pre kupovine pitaj se: “Da li mi se samo sviđa ili mi stvarno treba?”
-              <div class="tag tagGood">Tip: napravi mali budžet i drži ga se</div>
-            </div>
-          </div>
-
-          <p class="note" style="margin-top:10px;">
-            Ti menjaš samo slike, opise i cene u listi proizvoda. Sve ostalo radi samo.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <div class="grid" id="grid"></div>
-
-    <div class="footer">
-      © <span id="year"></span> Caparicki webshop • Nata, Ikan, Mila i Luka
+    <div class="controls">
+      <input id="q" placeholder="Pretraga (npr. kapibara, donut, boba)" />
+      <button class="btn btn-green" onclick="document.getElementById('grid').scrollIntoView({behavior:'smooth'})">Ponuda</button>
     </div>
   </div>
+</section>
 
-  <!-- Confetti -->
-  <div class="confetti" id="confetti"></div>
+<div class="grid" id="grid"></div>
 
-  <!-- Toast -->
-  <div class="toastHost" id="toastHost" aria-live="polite"></div>
+<button class="btn btn-green cartBtn" onclick="openCart()">🛒 Korpa (<span id="count">0</span>)</button>
 
-  <!-- Backdrop + Drawer -->
-  <div class="backdrop" id="backdrop"></div>
-  <aside class="drawer" id="drawer" aria-label="Korpa">
-    <div class="dhead">
-      <b>Moja korpa</b>
-      <button class="x" id="closeCart" aria-label="Zatvori">X</button>
+<div class="cartBG" id="cartBG" onclick="if(event.target.id==='cartBG') closeCart()">
+  <div class="cart">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <h3 style="margin:0">Moja korpa</h3>
+      <button class="btn btn-ghost" onclick="closeCart()">Zatvori</button>
     </div>
 
-    <div class="items" id="cartItems"></div>
+    <div id="cartItems"></div>
 
-    <div class="sum">
-      <div class="sumrow">
-        <span>Ukupno</span>
-        <b id="total">0 RSD</b>
-      </div>
-      <div class="sumrow">
-        <span>Budžet</span>
-        <b id="budgetLine">—</b>
-      </div>
-      <button class="checkout" id="checkoutBtn">Pošalji roditelju (WhatsApp)</button>
-      <p class="note" id="budgetNote">
-        Poruka sadrži listu proizvoda i ukupnu cenu. (Nema kartica i nema plaćanja na sajtu.)
-      </p>
-    </div>
-  </aside>
+    <p style="margin:10px 0"><b>Ukupno:</b> <span id="total">0 RSD</span></p>
+    <button class="btn btn-green" onclick="checkout()">Pošalji roditelju (Viber)</button>
 
-  <!-- Modal -->
-  <div class="modalbg" id="modalBg" aria-label="Detalji proizvoda">
-    <div class="modal">
-      <div class="mhead">
-        <b>Detalji</b>
-        <button class="x" id="closeModal" aria-label="Zatvori">X</button>
-      </div>
-      <div class="mbody">
-        <div class="mimg" id="mimg"></div>
-        <div class="minfo">
-          <h3 id="mname">—</h3>
-          <div class="meta" id="mmeta"></div>
-          <p id="mdesc" style="margin:0;color:var(--muted);font-weight:900;line-height:1.45"></p>
-          <div style="display:flex;gap:10px;margin-top:12px;flex-wrap:wrap;">
-            <button class="btn" id="madd">Dodaj u korpu</button>
-            <button class="btn secondary" id="mclose2">Zatvori</button>
-          </div>
-          <p class="note" id="mLesson" style="margin-top:10px;">
-            Mini lekcija: pre nego što dodaš, pitaj se — da li ti se sviđa, ili ti stvarno treba?
-          </p>
-        </div>
-      </div>
-    </div>
+    <p class="small" style="margin-top:10px" id="eduSummary"></p>
   </div>
+</div>
+
+<div class="footer">
+  Edukativni webshop za decu • porudžbina ide roditelju kao poruka • nema pravog plaćanja
+</div>
+
+</div>
+
+<div class="toastHost" id="toastHost"></div>
+<div class="confetti" id="confetti"></div>
 
 <script>
 /* =========================
-   1) TI MENJAŠ OVO
+   EDITUJ SAMO OVO: SLIKE, CENE, OPISI
+   Slike ubaci u folder img/ pa upiši npr. img/kapibara.jpg
    ========================= */
-const SHOP_NAME = "Caparicki webshop";
-const SHOP_SUB  = "Za klince • Squishy • Nauči kako radi trgovina";
-const CURRENCY  = "RSD";
-
-// Viber broj (bez +), npr. 3816xxxxxxx
-const Viber_NUMBER = "381600000000";
-
-// EDU: dnevni budžet (deca uče budžetiranje)
-const BUDGET_RSD = 2000; // promeni (npr. 1000, 1500, 3000)
-
-// PROIZVODI: ubaci slike i cene.
-// Slike stavi u folder img/ (pored index.html), pa u img upiši npr: "img/kapibara.jpg"
 const PRODUCTS = [
-  { id:"kapibara", name:"Mini Kapibara", price: 790,  rarity:"Rare",   tag:"Hit", img:"img/kapibara.jpg", desc:"Mekana kapibara – savršena za stiskanje i opuštanje." },
-  { id:"donut",    name:"Galaxy Donut",   price: 990,  rarity:"Epic",   tag:"Wow", img:"img/donut.jpg",    desc:"Šareni donut koji izgleda kao iz svemira." },
-  { id:"boba",     name:"Boba Milk Tea",  price: 1190, rarity:"Epic",   tag:"Top", img:"img/boba.jpg",     desc:"Milk tea sa boba kuglicama — preslatko i cool." },
-  { id:"panda",    name:"Panda Roll",     price: 850,  rarity:"Rare",   tag:"Kul", img:"",                desc:"Panda koja je uvek spremna za stiskanje." },
-  { id:"cake",     name:"Jagoda Tortica", price: 1290, rarity:"Legend", tag:"Slatko", img:"",             desc:"Tortica sa jagodom — wow efekat za vitrinu." },
-  { id:"rainbow",  name:"Rainbow Mačka",  price: 1390, rarity:"Legend", tag:"Šareno", img:"",             desc:"Duga-mačka. Kad je vidiš, moraš je imati." },
+  {id:"kapibara", name:"Mini Kapibara", price:790,  tag:"Hit", img:"img/kapibara.jpg", desc:"Mekana kapibara za stiskanje i smirenje."},
+  {id:"donut",    name:"Galaxy Donut",  price:990,  tag:"Wow", img:"img/donut.jpg",    desc:"Šareni donut kao iz crtanog filma."},
+  {id:"boba",     name:"Boba Milk Tea", price:1190, tag:"Top", img:"img/boba.jpg",     desc:"Boba čaša – hit među klincima."}
 ];
 
-/* =========================
-   2) LOGIKA (NE DIRAJ)
-   ========================= */
-const fmt = new Intl.NumberFormat("sr-RS", { style:"currency", currency: CURRENCY, maximumFractionDigits: 0 });
+/* Edu: mali budžet */
+const BUDGET_RSD = 2000;
+/* ========================= */
 
-const state = {
-  q:"",
-  sort:"popular",
-  cart: loadCart(),
-  xp: loadNum("cap_xp", 0),
-  level: loadNum("cap_lvl", 1),
-  achievements: loadObj("cap_ach", {}),
-  lastLessonIndex: loadNum("cap_lesson_i", 0)
-};
+const fmt = new Intl.NumberFormat("sr-RS",{style:"currency",currency:"RSD",maximumFractionDigits:0});
 
-function loadCart(){
-  try { return JSON.parse(localStorage.getItem("cap_cart") || "{}"); }
-  catch(e){ return {}; }
-}
-function loadNum(k, def){
-  const v = Number(localStorage.getItem(k));
-  return Number.isFinite(v) && v>=0 ? v : def;
-}
-function loadObj(k, def){
-  try { return JSON.parse(localStorage.getItem(k) || JSON.stringify(def)); }
-  catch(e){ return def; }
-}
-function saveAll(){
-  localStorage.setItem("cap_cart", JSON.stringify(state.cart));
-  localStorage.setItem("cap_xp", String(state.xp));
-  localStorage.setItem("cap_lvl", String(state.level));
-  localStorage.setItem("cap_ach", JSON.stringify(state.achievements));
-  localStorage.setItem("cap_lesson_i", String(state.lastLessonIndex));
-  updateCartCount();
-  updateProgressUI();
-}
+let cart = load("cap_cart", {});
+let xp = load("cap_xp", 0);
+let level = load("cap_lvl", 1);
 
-/* ===== Lessons / Achievements ===== */
 const LESSONS = [
-  { title:"Mini lekcija", text:"Pre kupovine pitaj se: “Da li mi se samo sviđa ili mi stvarno treba?”", tag:["Tip: prespavaj 1 noć pa odluči", "good"] },
-  { title:"Mini lekcija", text:"Budžet je plan: ako imaš 2.000 RSD, ne kupuješ za 2.500 RSD.", tag:["Tip: napravi listu želja", "warn"] },
-  { title:"Mini lekcija", text:"Cena nije isto što i vrednost. Vrednost je: koliko ti znači + koliko ćeš koristiti.", tag:["Tip: pitaj: koliko puta ću koristiti?", "good"] },
-  { title:"Mini lekcija", text:"Popust nije magija. Ako nešto ne bi kupio bez popusta, možda ti ne treba ni sa popustom.", tag:["Tip: uporedi pre i posle", "warn"] },
-  { title:"Mini lekcija", text:"Račun (ukupno) = cena × količina. To je super moć za kupovinu.", tag:["Tip: izračunaj u glavi", "good"] },
+  {t:"Pre kupovine pitaj se: “Da li mi se samo sviđa ili mi stvarno treba?”", tags:["Nije svaka želja potreba","Pametan izbor"]},
+  {t:"Račun: ukupno = cena × količina. To je super moć!", tags:["Probaj da izračunaš u glavi","Vežba matematike"]},
+  {t:"Budžet je plan: ako imaš 2.000 RSD, ne kupuješ za 2.500 RSD.", tags:["Izbaci 1 stvar","Smanji količinu"]},
+  {t:"Popust nije magija: ako ti ne treba bez popusta, možda ti ne treba ni sa popustom.", tags:["Uporedi pre/posle","Ne kupuj impulsivno"]}
 ];
+let lessonIndex = load("cap_lesson_i", 0);
 
-const BADGES = [
-  { lvl:1, name:"Početnik kupac", label:"POČETNIK" },
-  { lvl:2, name:"Pametan izbor", label:"PAMETAN" },
-  { lvl:3, name:"Šampion budžeta", label:"BUDŽET" },
-  { lvl:4, name:"Trgovac pro", label:"PRO" },
-  { lvl:5, name:"Legenda webshop-a", label:"LEGENDA" },
-];
-
-function xpNeedForLevel(lvl){
-  // postepeno teže: 100, 140, 190, 250, ...
-  return Math.round(80 + lvl*40 + (lvl-1)*(lvl*10));
+function save(){
+  localStorage.setItem("cap_cart", JSON.stringify(cart));
+  localStorage.setItem("cap_xp", String(xp));
+  localStorage.setItem("cap_lvl", String(level));
+  localStorage.setItem("cap_lesson_i", String(lessonIndex));
+}
+function load(key, def){
+  try{
+    const raw = localStorage.getItem(key);
+    if(raw===null) return def;
+    return key==="cap_cart" ? JSON.parse(raw) : Number(raw);
+  }catch(e){ return def; }
 }
 
-function giveXP(amount, reason){
-  const beforeLvl = state.level;
-  state.xp += amount;
-
-  let need = xpNeedForLevel(state.level);
-  while(state.xp >= need){
-    state.xp -= need;
-    state.level += 1;
-    need = xpNeedForLevel(state.level);
-    popConfetti(26);
-    toast("LEVEL UP!", `Bravo! Sada si nivo ${state.level}. Nastavi da skupljaš XP!`, `Nivo ${state.level}`);
-    awardBadgeIfAny();
-  }
-
-  saveAll();
-
-  if(reason){
-    toast("+XP", `${reason} (+${amount} XP)`, "Napredak");
-  }
-
-  if(beforeLvl === state.level){
-    // malo confetti i bez level up
-    popConfetti(14);
-  }
+function beep(type="add"){
+  try{
+    const ctx = new (window.AudioContext||window.webkitAudioContext)();
+    const o = ctx.createOscillator();
+    const g = ctx.createGain();
+    o.type="sine";
+    o.frequency.value = type==="level" ? 660 : 520;
+    g.gain.value = 0.08;
+    o.connect(g); g.connect(ctx.destination);
+    o.start();
+    o.frequency.exponentialRampToValueAtTime(type==="level"?990:740, ctx.currentTime + 0.12);
+    g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.18);
+    o.stop(ctx.currentTime + 0.2);
+  }catch(e){}
 }
 
-function awardOnce(key, title, text){
-  if(state.achievements[key]) return;
-  state.achievements[key] = true;
-  popConfetti(34);
-  toast(title, text, "Bedž");
-  saveAll();
-}
-
-function awardBadgeIfAny(){
-  const b = BADGES.slice().reverse().find(x => state.level >= x.lvl);
-  if(!b) return;
-  // bedž se prikazuje u UI, a “awardOnce” za milestone
-  if(state.level === 2) awardOnce("lvl2","Bedž otključan!", "Pametan izbor: znaš da ne kupuješ impulsivno.");
-  if(state.level === 3) awardOnce("lvl3","Bedž otključan!", "Šampion budžeta: razmišljaš o ukupnoj ceni.");
-  if(state.level === 5) awardOnce("lvl5","Bedž otključan!", "Legenda webshop-a: znaš kako radi korpa i račun.");
-}
-
-function nextLesson(){
-  state.lastLessonIndex = (state.lastLessonIndex + 1) % LESSONS.length;
-  const L = LESSONS[state.lastLessonIndex];
-  const box = document.getElementById("lessonBox");
-  box.innerHTML = `<b>${L.title}:</b> ${L.text}
-    <div class="tag ${L.tag[1]==="good"?"tagGood":L.tag[1]==="warn"?"tagWarn":"tagBad"}">${L.tag[0]}</div>`;
-  saveAll();
-}
-
-/* ===== UI helpers ===== */
 function toast(title, body, pill){
   const host = document.getElementById("toastHost");
   const t = document.createElement("div");
-  t.className = "toast";
+  t.className="toast";
   t.innerHTML = `
     <div class="toastTop">
-      <div class="toastTitle">${escapeHtml(title)}</div>
-      <div class="toastPill">${escapeHtml(pill || "Info")}</div>
+      <div class="toastTitle">${esc(title)}</div>
+      <div class="pill">${esc(pill||"Info")}</div>
     </div>
-    <div class="toastBody">${escapeHtml(body)}</div>
+    <div class="toastBody">${esc(body)}</div>
   `;
   host.appendChild(t);
   setTimeout(()=>{ t.style.opacity="0"; t.style.transform="translateY(10px)"; }, 2600);
   setTimeout(()=>{ t.remove(); }, 3000);
 }
 
-function popConfetti(pieces=18){
+function confetti(pieces=22){
   const c = document.getElementById("confetti");
-  c.innerHTML = "";
-  c.style.display = "block";
-  const colors = ["#7c5cff","#34d399","#ff6bd6","#ffd166","#4dd3ff"];
+  c.innerHTML=""; c.style.display="block";
+  const colors=["#7c5cff","#34d399","#ff6bd6","#ffd166","#4dd3ff"];
   for(let i=0;i<pieces;i++){
-    const p = document.createElement("i");
-    const left = Math.random()*100;
-    const delay = Math.random()*120;
-    const dur = 650 + Math.random()*520;
-    const size = 7 + Math.random()*9;
-    p.style.left = left+"vw";
-    p.style.top = (-20 - Math.random()*80)+"px";
-    p.style.width = size+"px";
-    p.style.height = (size+4)+"px";
-    p.style.background = colors[Math.floor(Math.random()*colors.length)];
-    p.style.animationDuration = dur+"ms";
-    p.style.animationDelay = delay+"ms";
+    const p=document.createElement("i");
+    p.style.left=(Math.random()*100)+"vw";
+    p.style.top=(-20 - Math.random()*80)+"px";
+    const size=7+Math.random()*9;
+    p.style.width=size+"px"; p.style.height=(size+4)+"px";
+    p.style.background=colors[Math.floor(Math.random()*colors.length)];
+    p.style.animationDuration=(750+Math.random()*500)+"ms";
+    p.style.animationDelay=(Math.random()*120)+"ms";
     c.appendChild(p);
   }
   setTimeout(()=>{ c.style.display="none"; c.innerHTML=""; }, 1200);
 }
 
-function escapeHtml(str){
-  return String(str).replace(/[&<>"']/g, s => ({
-    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
-  }[s]));
+function esc(s){return String(s).replace(/[&<>"']/g,m=>({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;" }[m]));}
+
+function xpNeed(lvl){ return Math.round(80 + lvl*40 + (lvl-1)*lvl*8); }
+function badgeFor(xp){
+  if(xp>=300) return "Legenda";
+  if(xp>=180) return "Trgovac PRO";
+  if(xp>=90)  return "Pametan kupac";
+  return "Početnik";
 }
 
-/* ===== Product filtering/sorting ===== */
-function filtered(){
-  let list = PRODUCTS.slice();
-  const s = state.q.trim().toLowerCase();
-  if(s){
-    list = list.filter(p =>
-      p.name.toLowerCase().includes(s) ||
-      (p.desc||"").toLowerCase().includes(s) ||
-      (p.tag||"").toLowerCase().includes(s)
-    );
+function giveXP(amount, reason){
+  xp += amount;
+
+  let need = xpNeed(level);
+  while(xp >= need){
+    xp -= need;
+    level += 1;
+    beep("level");
+    confetti(36);
+    toast("LEVEL UP!", `Bravo! Sada si nivo ${level}.`, `Nivo ${level}`);
+    need = xpNeed(level);
   }
-  if(state.sort === "cheap") list.sort((a,b)=>a.price-b.price);
-  if(state.sort === "expensive") list.sort((a,b)=>b.price-a.price);
-  if(state.sort === "name") list.sort((a,b)=>a.name.localeCompare(b.name,"sr"));
-  return list;
+
+  beep("add");
+  toast("+XP", `${reason} (+${amount} XP)`, "Napredak");
+  updateUI();
+  save();
 }
 
-/* ===== Render grid ===== */
-function renderGrid(){
-  const grid = document.getElementById("grid");
-  grid.innerHTML = "";
-  const list = filtered();
+function nextLesson(){
+  lessonIndex = (lessonIndex + 1) % LESSONS.length;
+  const L = LESSONS[lessonIndex];
+  document.getElementById("lesson").innerHTML = `
+    <b>Mini lekcija:</b> ${esc(L.t)}
+    <div class="tags">
+      <div class="tag">${esc(L.tags[0])}</div>
+      <div class="tag">${esc(L.tags[1])}</div>
+    </div>
+  `;
+  save();
+}
 
+function filtered(){
+  const q = (document.getElementById("q").value||"").trim().toLowerCase();
+  if(!q) return PRODUCTS;
+  return PRODUCTS.filter(p =>
+    p.name.toLowerCase().includes(q) ||
+    (p.desc||"").toLowerCase().includes(q) ||
+    (p.tag||"").toLowerCase().includes(q)
+  );
+}
+
+function render(){
+  const g=document.getElementById("grid"); g.innerHTML="";
+  const list = filtered();
   if(!list.length){
-    const div = document.createElement("div");
-    div.style.gridColumn="1/-1";
-    div.style.padding="16px";
-    div.style.border="1px solid rgba(255,255,255,.14)";
-    div.style.borderRadius="22px";
-    div.style.background="rgba(255,255,255,.05)";
-    div.style.color="rgba(243,245,255,.85)";
-    div.style.fontWeight="950";
-    div.textContent="Nema rezultata. Probaj drugu pretragu.";
-    grid.appendChild(div);
+    g.innerHTML = `<div style="grid-column:1/-1;padding:16px;border-radius:18px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);font-weight:950">Nema rezultata. Probaj drugu pretragu.</div>`;
     return;
   }
-
   list.forEach(p=>{
-    const card = document.createElement("div");
-    card.className="card";
-
-    const img = document.createElement("div");
-    img.className="img";
-
-    const corner = document.createElement("div");
-    corner.className="badgeCorner";
-    corner.textContent = p.tag || "Squishy";
-    img.appendChild(corner);
-
-    if(p.img){
-      const im = document.createElement("img");
-      im.src = p.img; im.alt = p.name;
-      img.appendChild(im);
-    } else {
-      const ph = document.createElement("div");
-      ph.className="ph";
-      ph.textContent="UBACI SLIKU";
-      img.appendChild(ph);
-    }
-
-    const c = document.createElement("div");
-    c.className="c";
-
-    const row = document.createElement("div");
-    row.className="row";
-
-    const name = document.createElement("h3");
-    name.className="name";
-    name.textContent = p.name;
-
-    row.appendChild(name);
-
-    const desc = document.createElement("div");
-    desc.className="desc";
-    desc.textContent = (p.desc||"").slice(0, 92) + ((p.desc||"").length>92 ? "…" : "");
-
-    const price = document.createElement("div");
-    price.className="price";
-    price.textContent = fmt.format(p.price);
-
-    const actions = document.createElement("div");
-    actions.className="actions";
-
-    const add = document.createElement("button");
-    add.className="add";
-    add.textContent="Dodaj";
-    add.onclick = ()=> {
-      addToCart(p.id,1);
-      giveXP(xpFor(p), `Dodao si "${p.name}" u korpu`);
-      eduCheckAfterAdd();
-    };
-
-    const details = document.createElement("button");
-    details.className="details";
-    details.textContent="Detalji";
-    details.onclick = ()=> openModal(p.id);
-
-    actions.appendChild(add);
-    actions.appendChild(details);
-
-    c.appendChild(row);
-    c.appendChild(desc);
-    c.appendChild(price);
-    c.appendChild(actions);
-
-    card.appendChild(img);
-    card.appendChild(c);
-    grid.appendChild(card);
+    const d=document.createElement("div");
+    d.className="card";
+    d.innerHTML=`
+      <div class="img">
+        <div class="badge">${esc(p.tag||"Squishy")}</div>
+        ${p.img?`<img src="${esc(p.img)}" alt="${esc(p.name)}">`:`<div class="ph">UBACI SLIKU</div>`}
+      </div>
+      <div class="c">
+        <h3>${esc(p.name)}</h3>
+        <div class="desc">${esc(p.desc||"")}</div>
+        <div class="price">${fmt.format(p.price)}</div>
+        <div class="actions">
+          <button class="btn btn-main" onclick="addToCart('${esc(p.id)}')">Dodaj</button>
+          <button class="btn btn-ghost" onclick="showTip('${esc(p.id)}')">Tip</button>
+        </div>
+      </div>`;
+    g.appendChild(d);
   });
 }
 
-/* ===== XP points per item ===== */
-function xpFor(p){
-  const r = (p.rarity||"").toLowerCase();
-  if(r.includes("legend")) return 24;
-  if(r.includes("epic")) return 18;
-  if(r.includes("rare")) return 14;
-  return 10;
+function showTip(id){
+  const p = PRODUCTS.find(x=>x.id===id);
+  const tips = [
+    "Pitanje: da li bi ovo kupio da nemaš korpu? 🙂",
+    "Tip: uporedi sa jednim drugim proizvodom pa odluči.",
+    "Tip: ako uzmeš 2 komada, ukupno je 2 × cena.",
+    "Tip: najbolja kupovina je ona koja ti dugo traje."
+  ];
+  toast("Saveti kupovine", `${p.name}: ${tips[Math.floor(Math.random()*tips.length)]}`, "Edukacija");
 }
 
-/* ===== Cart logic ===== */
-function saveCart(){
-  localStorage.setItem("cap_cart", JSON.stringify(state.cart));
-  updateCartCount();
-  updateBudgetUI();
+function addToCart(id){
+  cart[id]=(cart[id]||0)+1;
+  giveXP(12, `Dodao si "${PRODUCTS.find(x=>x.id===id).name}" u korpu`);
+  if(Math.random()<0.25) nextLesson();
+  updateUI();
+  save();
 }
-function updateCartCount(){
-  const count = Object.values(state.cart).reduce((a,b)=>a+b,0);
-  document.getElementById("cartCount").textContent = count;
-}
-function addToCart(id, delta){
-  state.cart[id] = (state.cart[id]||0) + delta;
-  if(state.cart[id] <= 0) delete state.cart[id];
-  saveCart();
-  renderCart();
-}
+
 function removeFromCart(id){
-  delete state.cart[id];
-  saveCart();
-  renderCart();
+  delete cart[id];
+  giveXP(8, "Obrisao si proizvod – kontrola budžeta!");
+  updateUI();
+  save();
 }
-function cartTotal(){
-  let total = 0;
-  Object.entries(state.cart).forEach(([id,qty])=>{
-    const p = PRODUCTS.find(x=>x.id===id);
-    if(!p) return;
-    total += p.price * qty;
-  });
-  return total;
-}
-function renderCart(){
-  const box = document.getElementById("cartItems");
-  box.innerHTML = "";
-  const entries = Object.entries(state.cart);
 
-  let total = 0;
+function changeQty(id,delta){
+  cart[id]=(cart[id]||0)+delta;
+  if(cart[id]<=0) delete cart[id];
+  giveXP(delta>0?4:6, delta>0?"Povećao si količinu":"Smanjio si količinu (pametan potez)");
+  updateUI();
+  save();
+}
+
+function cartTotal(){
+  let t=0;
+  Object.entries(cart).forEach(([id,q])=>{
+    const p=PRODUCTS.find(x=>x.id===id);
+    if(p) t+=p.price*q;
+  });
+  return t;
+}
+
+function updateUI(){
+  const count = Object.values(cart).reduce((a,b)=>a+b,0);
+  document.getElementById("count").textContent = count;
+
+  document.getElementById("xp").textContent = xp;
+  document.getElementById("level").textContent = level;
+  const need = xpNeed(level);
+  document.getElementById("need").textContent = need;
+
+  const pct = Math.max(0, Math.min(100, Math.round((xp/need)*100)));
+  document.getElementById("barFill").style.width = pct+"%";
+
+  document.getElementById("badge").textContent = badgeFor(load("cap_xp",0) + xp); // vizuelno “napreduje”
+
+  // Edu summary za roditelja
+  const total = cartTotal();
+  let edu = `Budžet: ${fmt.format(total)} / ${fmt.format(BUDGET_RSD)}. `;
+  if(total===0) edu += "Korpa je prazna.";
+  else if(total<=BUDGET_RSD) edu += "U okviru budžeta ✅ (dete uči planiranje).";
+  else edu += "Preko budžeta ⚠️ (predlog: izbaci 1 stvar ili smanji količinu).";
+  document.getElementById("eduSummary").textContent = edu;
+
+  // ako je korpa otvorena, osveži prikaz
+  if(document.getElementById("cartBG").style.display==="block"){
+    renderCart();
+  }
+}
+
+function renderCart(){
+  const box=document.getElementById("cartItems"); box.innerHTML="";
+  const entries = Object.entries(cart);
+  let total=0;
 
   if(!entries.length){
-    const empty = document.createElement("div");
-    empty.style.padding="14px";
-    empty.style.border="1px solid rgba(255,255,255,.14)";
-    empty.style.borderRadius="18px";
-    empty.style.background="rgba(255,255,255,.04)";
-    empty.style.color="rgba(243,245,255,.88)";
-    empty.style.fontWeight="950";
-    empty.innerHTML = "Korpa je prazna. Dodaj nešto preslatko!";
-    box.appendChild(empty);
+    box.innerHTML = `<div class="item"><b>Korpa je prazna.</b><div class="itemSmall">Dodaj nešto i dobijaš XP.</div></div>`;
     document.getElementById("total").textContent = fmt.format(0);
-    updateBudgetUI();
     return;
   }
 
-  entries.forEach(([id,qty])=>{
-    const p = PRODUCTS.find(x=>x.id===id);
+  entries.forEach(([id,q])=>{
+    const p=PRODUCTS.find(x=>x.id===id);
     if(!p) return;
-    total += p.price * qty;
+    total += p.price*q;
 
-    const it = document.createElement("div");
-    it.className="item";
-
-    const mini = document.createElement("div");
-    mini.className="mini";
-    if(p.img){
-      const im = document.createElement("img");
-      im.src = p.img; im.alt = p.name;
-      mini.appendChild(im);
-    } else {
-      mini.textContent="IMG";
-    }
-
-    const mid = document.createElement("div");
-    const t = document.createElement("div");
-    t.className="ititle";
-    t.textContent=p.name;
-
-    const pr = document.createElement("div");
-    pr.className="iprice";
-    pr.textContent = `${fmt.format(p.price)} • x${qty}`;
-
-    mid.appendChild(t);
-    mid.appendChild(pr);
-
-    const q = document.createElement("div");
-    q.className="qty";
-
-    const minus = document.createElement("button");
-    minus.className="qbtn";
-    minus.textContent="–";
-    minus.onclick=()=>{ addToCart(id,-1); giveXP(2,"Smanjio si količinu (pametan potez)"); eduCheckAfterAdd(); };
-
-    const plus = document.createElement("button");
-    plus.className="qbtn";
-    plus.textContent="+";
-    plus.onclick=()=>{ addToCart(id,+1); giveXP(4,"Povećao si količinu"); eduCheckAfterAdd(); };
-
-    const del = document.createElement("button");
-    del.className="qbtn";
-    del.textContent="×";
-    del.onclick=()=>{ removeFromCart(id); giveXP(6,"Obrisao si item — kontrola budžeta!"); eduCheckAfterAdd(); };
-
-    q.appendChild(minus);
-    q.appendChild(plus);
-    q.appendChild(del);
-
-    it.appendChild(mini);
-    it.appendChild(mid);
-    it.appendChild(q);
-
-    box.appendChild(it);
+    const el=document.createElement("div");
+    el.className="item";
+    el.innerHTML = `
+      <div class="itemTop"><span>${esc(p.name)}</span><span>${fmt.format(p.price*q)}</span></div>
+      <div class="itemSmall">${fmt.format(p.price)} × ${q}</div>
+      <div class="qty">
+        <button class="qbtn" onclick="changeQty('${esc(id)}',-1)">–</button>
+        <button class="qbtn" onclick="changeQty('${esc(id)}',+1)">+</button>
+        <button class="qbtn" onclick="removeFromCart('${esc(id)}')">×</button>
+      </div>
+    `;
+    box.appendChild(el);
   });
 
   document.getElementById("total").textContent = fmt.format(total);
-  updateBudgetUI();
 }
 
-/* ===== Budget education ===== */
-function updateBudgetUI(){
-  const total = cartTotal();
-  const line = document.getElementById("budgetLine");
-  const note = document.getElementById("budgetNote");
-  line.textContent = `${fmt.format(total)} / ${fmt.format(BUDGET_RSD)}`;
-
-  if(total === 0){
-    note.textContent = "Poruka sadrži listu proizvoda i ukupnu cenu. (Nema kartica i nema plaćanja na sajtu.)";
-    return;
-  }
-
-  if(total <= BUDGET_RSD){
-    note.textContent = "Super! U okviru si budžeta. To je veština kupovine.";
-  } else if(total <= BUDGET_RSD * 1.15){
-    note.textContent = "Malo prelazi budžet. Možeš da izbaciš 1 stvar ili smanjiš količinu.";
-  } else {
-    note.textContent = "Prelazi budžet. Probaj da izabereš 1–2 omiljene stvari umesto sve.";
-  }
+function openCart(){
+  renderCart();
+  document.getElementById("cartBG").style.display="block";
+}
+function closeCart(){
+  document.getElementById("cartBG").style.display="none";
 }
 
-function eduCheckAfterAdd(){
-  const total = cartTotal();
-  if(total > 0 && total <= BUDGET_RSD && !state.achievements["budget_ok"]){
-    awardOnce("budget_ok", "Bravo, budžet!", "U okviru si budžeta. To je veština: planiranje.");
-  }
-  if(total > BUDGET_RSD && !state.achievements["budget_over"]){
-    awardOnce("budget_over", "Budžet alarm!", "Prešao si budžet. Nauči: izbaci 1 stvar ili smanji količinu.");
-  }
-  if(Object.keys(state.cart).length >= 3 && !state.achievements["mix3"]){
-    awardOnce("mix3", "Kolekcionar!", "Dodao si 3 različite stvari u korpu. Sada uporedi: šta ti je najvažnije?");
-  }
-  // povremeno menjaj lekciju
-  if(Math.random() < 0.25) nextLesson();
-}
-
-/* ===== Open/close cart ===== */
-function toggleCart(open){
-  const d = document.getElementById("drawer");
-  const b = document.getElementById("backdrop");
-  if(open){
-    b.style.display="block";
-    d.classList.add("open");
-  } else {
-    b.style.display="none";
-    d.classList.remove("open");
-  }
-}
-
-/* ===== Checkout ===== */
 function checkout(){
-  const entries = Object.entries(state.cart);
+  const entries = Object.entries(cart);
   if(!entries.length){ alert("Korpa je prazna."); return; }
 
-  let total = 0;
-  let msg = `Porudžbina (${encodeURIComponent(SHOP_NAME)})%0A%0A`;
-  entries.forEach(([id,qty])=>{
-    const p = PRODUCTS.find(x=>x.id===id);
-    if(!p) return;
-    total += p.price*qty;
-    msg += `${encodeURIComponent(p.name)} x${qty} — ${encodeURIComponent(fmt.format(p.price))}%0A`;
+  let total=0;
+  let msg = `Porudžbina (Caparicki Webshop)%0A%0A`;
+  entries.forEach(([id,q])=>{
+    const p=PRODUCTS.find(x=>x.id===id);
+    total += p.price*q;
+    msg += `${encodeURIComponent(p.name)} x${q} — ${encodeURIComponent(fmt.format(p.price))}%0A`;
   });
 
   msg += `%0AUkupno: ${encodeURIComponent(fmt.format(total))}%0A`;
   msg += `%0ABudžet: ${encodeURIComponent(fmt.format(BUDGET_RSD))}%0A`;
-
-  if(total <= BUDGET_RSD){
-    msg += `%0APoruka: U okviru budžeta ✅%0A`;
-  } else {
-    msg += `%0APoruka: Preko budžeta ⚠️ (predlog: izbaciti 1 stvar)%0A`;
-  }
-
+  if(total<=BUDGET_RSD) msg += `%0AStatus: U okviru budžeta ✅%0A`;
+  else msg += `%0AStatus: Preko budžeta ⚠️ (predlog: izbaciti 1 stvar)%0A`;
   msg += `%0AIME I ADRESA: (upišite ovde)`;
 
-  const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`;
-  window.open(url, "_blank");
+  // Viber share/forward – najstabilnije
+  window.open(`viber://forward?text=${msg}`, "_blank");
 
-  giveXP(18, "Poslao si porudžbinu roditelju");
-  awardOnce("first_order", "Prva porudžbina!", "Bravo! Naučio si kako radi porudžbina i korpa.");
+  confetti(40);
+  toast("Bravo!", "Porudžbina je spremna za roditelja. Naučio si kako radi webshop!", "Final");
 }
 
-/* ===== Modal ===== */
-function openModal(id){
-  const p = PRODUCTS.find(x=>x.id===id);
-  if(!p) return;
+document.getElementById("q").addEventListener("input", ()=>render());
 
-  const bg = document.getElementById("modalBg");
-  const mimg = document.getElementById("mimg");
-  mimg.innerHTML = "";
+(function init(){
+  // učitaj lekciju
+  const L = LESSONS[lessonIndex];
+  document.getElementById("lesson").innerHTML = `
+    <b>Mini lekcija:</b> ${esc(L.t)}
+    <div class="tags">
+      <div class="tag">${esc(L.tags[0])}</div>
+      <div class="tag">${esc(L.tags[1])}</div>
+    </div>
+  `;
 
-  if(p.img){
-    const im = document.createElement("img");
-    im.src=p.img; im.alt=p.name;
-    mimg.appendChild(im);
-  } else {
-    const ph = document.createElement("div");
-    ph.className="ph";
-    ph.textContent="UBACI SLIKU";
-    mimg.appendChild(ph);
-  }
+  render();
+  updateUI();
+  save();
 
-  document.getElementById("mname").textContent = p.name;
-  document.getElementById("mdesc").textContent = p.desc || "";
-
-  const meta = document.getElementById("mmeta");
-  meta.innerHTML = "";
-  const rarity = p.rarity ? `Rarity: ${p.rarity}` : "Rarity: Common";
-  [rarity, "Cena: "+fmt.format(p.price), "Tag: "+(p.tag||"Squishy")].forEach(t=>{
-    const el=document.createElement("div");
-    el.className="pill"; el.textContent=t;
-    meta.appendChild(el);
-  });
-
-  const lessonsMini = [
-    "Mini lekcija: Ako kupiš 2 komada, ukupno je 2 × cena.",
-    "Mini lekcija: “Najjeftinije” nije uvek najbolje — važno je koliko ti znači.",
-    "Mini lekcija: Napravi listu ‘želim’ i ‘treba’ — to je pametna kupovina."
-  ];
-  document.getElementById("mLesson").textContent = lessonsMini[Math.floor(Math.random()*lessonsMini.length)];
-
-  document.getElementById("madd").onclick = ()=>{
-    addToCart(id,1);
-    giveXP(xpFor(p), `Dodao si "${p.name}" iz detalja`);
-    toggleCart(true);
-    closeModal();
-  };
-
-  bg.style.display="flex";
-}
-function closeModal(){ document.getElementById("modalBg").style.display="none"; }
-
-/* ===== Progress UI ===== */
-function updateProgressUI(){
-  const need = xpNeedForLevel(state.level);
-  document.getElementById("lvl").textContent = state.level;
-  document.getElementById("xp").textContent = state.xp;
-  document.getElementById("xpNeed").textContent = need;
-  const pct = Math.max(0, Math.min(100, Math.round((state.xp/need)*100)));
-  document.getElementById("barFill").style.width = pct + "%";
-
-  const b = BADGES.slice().reverse().find(x => state.level >= x.lvl) || BADGES[0];
-  document.getElementById("badgeLine").textContent = "Bedž: " + b.name;
-  document.getElementById("lvlBadge").textContent = b.label;
-}
-
-function init(){
-  document.getElementById("shopName").textContent = SHOP_NAME;
-  document.getElementById("shopSub").textContent = SHOP_SUB;
-  document.getElementById("year").textContent = new Date().getFullYear();
-
-  // controls
-  document.getElementById("q").addEventListener("input", e=>{ state.q=e.target.value; renderGrid(); });
-  document.getElementById("sort").addEventListener("change", e=>{ state.sort=e.target.value; renderGrid(); });
-  document.getElementById("scrollShop").onclick = ()=> document.getElementById("grid").scrollIntoView({behavior:"smooth"});
-
-  // cart open/close
-  document.getElementById("openCart").onclick = ()=>{ renderCart(); toggleCart(true); };
-  document.getElementById("closeCart").onclick = ()=> toggleCart(false);
-  document.getElementById("backdrop").onclick = ()=> toggleCart(false);
-  document.getElementById("checkoutBtn").onclick = ()=> checkout();
-
-  // modal close
-  document.getElementById("closeModal").onclick = ()=> closeModal();
-  document.getElementById("mclose2").onclick = ()=> closeModal();
-  document.getElementById("modalBg").addEventListener("click", (e)=>{ if(e.target.id==="modalBg") closeModal(); });
-
-  // initial lesson and UI
-  nextLesson();
-  updateBudgetUI();
-  updateCartCount();
-  updateProgressUI();
-
-  renderGrid();
-  renderCart();
-
-  // welcome toast once
-  if(!state.achievements["welcome"]){
-    state.achievements["welcome"] = true;
-    saveAll();
-    toast("Dobrodošao!", "Ovo je shop-igrica: učiš korpu, budžet i račun. Dodaj nešto u korpu da dobiješ XP!", "Start");
-  }
-}
-
-init();
+  toast("Dobrodošao!", "Ovo je webshop-igrica: dodaj u korpu i skupljaj XP.", "Start");
+})();
 </script>
 </body>
 </html>
