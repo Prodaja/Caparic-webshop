@@ -17,12 +17,16 @@
       --muted: rgba(243,245,255,.78);
       --shadow: 0 18px 55px rgba(0,0,0,.45);
 
-      --p1:#7c5cff;   /* purple */
-      --p2:#34d399;   /* green */
-      --p3:#ff6bd6;   /* pink */
-      --p4:#ffd166;   /* yellow */
-      --p5:#4dd3ff;   /* cyan */
+      --p1:#7c5cff;
+      --p2:#34d399;
+      --p3:#ff6bd6;
+      --p4:#ffd166;
+      --p5:#4dd3ff;
       --radius: 22px;
+
+      --good:#34d399;
+      --warn:#ffd166;
+      --bad:#ff6b6b;
     }
 
     *{box-sizing:border-box}
@@ -39,14 +43,13 @@
       overflow-x:hidden;
     }
 
-    /* cute floating blobs */
+    /* floating blobs */
     .blob{
-      position:fixed; inset:auto; z-index:-1; filter: blur(18px);
-      opacity:.65; transform: translate3d(0,0,0);
-      border-radius: 999px;
-      animation: floaty 9s ease-in-out infinite;
+      position:fixed; z-index:-1; filter: blur(18px);
+      opacity:.65; border-radius: 999px;
+      animation: floaty 10s ease-in-out infinite;
     }
-    .b1{ width:320px;height:320px; left:-80px; top:120px; background: rgba(255,107,214,.35); animation-duration: 10s;}
+    .b1{ width:320px;height:320px; left:-80px; top:120px; background: rgba(255,107,214,.35); }
     .b2{ width:360px;height:360px; right:-120px; top:180px; background: rgba(77,211,255,.30); animation-duration: 12s;}
     .b3{ width:420px;height:420px; left:35%; bottom:-200px; background: rgba(52,211,153,.25); animation-duration: 14s;}
     @keyframes floaty{
@@ -54,7 +57,7 @@
       50%{ transform: translateY(-18px) translateX(14px) scale(1.05); }
     }
 
-    .wrap{max-width:1100px;margin:0 auto;padding:18px 16px 30px;}
+    .wrap{max-width:1120px;margin:0 auto;padding:18px 16px 30px;}
 
     /* Topbar */
     .topbar{
@@ -97,6 +100,7 @@
       background: rgba(124,92,255,.25);
       border:1px solid rgba(124,92,255,.55);
     }
+
     .btn{
       border:0; cursor:pointer; user-select:none;
       padding:10px 12px;border-radius:16px;
@@ -130,17 +134,15 @@
     }
     .heroGrid{
       display:grid;
-      grid-template-columns: 1.2fr .8fr;
+      grid-template-columns: 1.1fr .9fr;
       gap:16px;
-      align-items:center;
+      align-items:start;
     }
-    @media (max-width: 980px){
-      .heroGrid{grid-template-columns:1fr}
-    }
+    @media (max-width: 980px){ .heroGrid{grid-template-columns:1fr} }
     .hero h2{
       margin:0 0 8px 0;
-      font-size: 32px;
-      line-height:1.04;
+      font-size: 30px;
+      line-height:1.05;
       letter-spacing:.2px;
       font-weight:1100;
     }
@@ -181,21 +183,73 @@
       opacity:.25;
       transform: rotate(25deg);
     }
-    .stat{
-      display:flex; justify-content:space-between; align-items:center;
+
+    /* Progress / Level */
+    .xpBox{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:10px;
+      margin-top:10px;
+    }
+    .lvlRow{
+      display:flex; justify-content:space-between; align-items:center; gap:10px;
       padding:12px; border-radius:18px;
       background: rgba(255,255,255,.06);
       border:1px solid rgba(255,255,255,.12);
-      margin-top:10px;
     }
-    .stat b{font-size:13px;font-weight:1100}
-    .stat span{color:var(--muted); font-weight:1000}
+    .lvlLeft b{font-size:13px;font-weight:1200}
+    .lvlLeft div{color:var(--muted); font-weight:950; font-size:12px; margin-top:4px}
+    .lvlBadge{
+      padding:8px 10px; border-radius:999px;
+      background: rgba(124,92,255,.25);
+      border:1px solid rgba(124,92,255,.55);
+      font-weight:1200; font-size:12px;
+      white-space:nowrap;
+    }
+    .bar{
+      height:12px;border-radius:999px;
+      background: rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.12);
+      overflow:hidden;
+    }
+    .bar > i{
+      display:block; height:100%;
+      width:20%;
+      background: linear-gradient(90deg, var(--p2), var(--p5), var(--p1));
+      border-radius:999px;
+      transition: width .25s ease;
+    }
+
+    .lesson{
+      margin-top:10px;
+      padding:12px; border-radius:18px;
+      background: rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.12);
+      color: rgba(243,245,255,.88);
+      font-weight:900;
+      line-height:1.35;
+      font-size:12.5px;
+    }
+    .lesson b{color:#fff}
+    .lesson .tag{
+      display:inline-flex; align-items:center; gap:8px;
+      margin-top:8px;
+      padding:7px 10px; border-radius:999px;
+      background: rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.12);
+      font-weight:1100;
+      font-size:11px;
+      color: var(--muted);
+    }
+    .tagGood{border-color: rgba(52,211,153,.35); color: rgba(52,211,153,.95)}
+    .tagWarn{border-color: rgba(255,209,102,.35); color: rgba(255,209,102,.95)}
+    .tagBad{border-color: rgba(255,107,107,.35); color: rgba(255,107,107,.95)}
 
     /* Controls */
     .controls{
       margin-top:14px;
       display:grid;
-      grid-template-columns: 1.2fr .9fr .9fr auto;
+      grid-template-columns: 1.3fr 1fr auto;
       gap:10px;
     }
     input, select{
@@ -209,8 +263,7 @@
       font-weight:900;
     }
     input::placeholder{color: rgba(243,245,255,.70); font-weight:800}
-    @media (max-width: 900px){ .controls{grid-template-columns:1fr 1fr} }
-    @media (max-width: 520px){ .controls{grid-template-columns:1fr} }
+    @media (max-width: 900px){ .controls{grid-template-columns:1fr} }
 
     /* Grid */
     .grid{
@@ -240,7 +293,7 @@
       display:flex; align-items:center; justify-content:center;
       position:relative;
     }
-    .img img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(1.05) contrast(1.02)}
+    .img img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(1.08) contrast(1.03)}
     .ph{
       padding:8px 10px;border-radius:999px;
       background: rgba(255,255,255,.72);
@@ -262,14 +315,6 @@
     .c{padding:12px}
     .row{display:flex; align-items:flex-start; justify-content:space-between; gap:10px}
     .name{margin:0; font-size:14px; font-weight:1100; line-height:1.15}
-    .tag{
-      font-size:11px; font-weight:1100;
-      padding:6px 8px;border-radius:999px;
-      background: rgba(255,255,255,.06);
-      border:1px solid rgba(255,255,255,.14);
-      color: var(--muted);
-      white-space:nowrap;
-    }
     .desc{margin:8px 0 10px 0; color: var(--muted); font-weight:850; font-size:12.5px; line-height:1.35}
     .price{font-weight:1200; font-size:15px}
     .actions{display:flex; gap:10px; margin-top:10px}
@@ -423,7 +468,7 @@
       color: var(--muted);
     }
 
-    /* Tiny mascot SVG wrapper */
+    /* Mascots */
     .mascotWrap{display:flex; gap:10px; align-items:center; justify-content:flex-end; flex-wrap:wrap}
     .mascot{
       width:96px; height:72px; flex:0 0 auto;
@@ -451,7 +496,7 @@
       font-size:12px;
     }
 
-    /* Confetti (simple) */
+    /* Confetti */
     .confetti{
       position:fixed; inset:0; pointer-events:none; z-index:80;
       overflow:hidden; display:none;
@@ -464,6 +509,39 @@
     }
     @keyframes fall{
       to{ transform: translateY(110vh) rotate(420deg); opacity:1; }
+    }
+
+    /* Toast */
+    .toastHost{
+      position:fixed; z-index:90; right:14px; bottom:14px;
+      display:flex; flex-direction:column; gap:10px;
+      pointer-events:none;
+    }
+    .toast{
+      pointer-events:none;
+      width:min(380px, 92vw);
+      border-radius:18px;
+      padding:12px 12px;
+      background: rgba(10,14,34,.92);
+      border:1px solid rgba(255,255,255,.14);
+      box-shadow: 0 18px 55px rgba(0,0,0,.38);
+      transform: translateY(10px);
+      opacity:0;
+      animation: toastIn 220ms ease forwards;
+    }
+    @keyframes toastIn{
+      to{transform: translateY(0); opacity:1}
+    }
+    .toastTop{display:flex; align-items:center; justify-content:space-between; gap:10px}
+    .toastTitle{font-weight:1200}
+    .toastBody{margin-top:6px; color:rgba(243,245,255,.82); font-weight:900; line-height:1.35; font-size:12.5px}
+    .toastPill{
+      font-size:11px; font-weight:1200;
+      padding:6px 10px; border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color: var(--muted);
+      white-space:nowrap;
     }
 
     /* Reduced motion */
@@ -502,21 +580,20 @@
         <div>
           <h2>Caparicki webshop: <br/>klikni, izaberi, nauči.</h2>
           <p>
-            Ovo je edukativni mini-shop za decu: učiš šta je proizvod, cena, korpa i porudžbina.
+            Ovo je edukativni mini-shop: učiš šta je proizvod, cena, korpa i porudžbina.
             Nema kartica i nema pravog plaćanja — porudžbina ide roditelju kao poruka.
           </p>
 
           <div class="stickers">
-            <span class="sticker"><span class="dot d1"></span> Super boje</span>
-            <span class="sticker"><span class="dot d2"></span> Crtani stil</span>
+            <span class="sticker"><span class="dot d1"></span> Igrica mod</span>
+            <span class="sticker"><span class="dot d2"></span> Level up</span>
             <span class="sticker"><span class="dot d3"></span> Mobile friendly</span>
           </div>
 
           <div class="controls" style="margin-top:14px;">
             <input id="q" placeholder="Pretraga (npr. kapibara, donut, boba)" />
-            <select id="cat"></select>
             <select id="sort">
-              <option value="popular">Sort: popularno</option>
+              <option value="popular">Sort: preporučeno</option>
               <option value="cheap">Cena: niža → viša</option>
               <option value="expensive">Cena: viša → niža</option>
               <option value="name">Naziv: A → Z</option>
@@ -527,17 +604,15 @@
 
         <div class="panel">
           <div class="shine" aria-hidden="true"></div>
-          <div style="display:flex; justify-content:space-between; align-items:center; gap:10px;">
-            <div style="font-weight:1100;">Danas trenduje</div>
+
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:10px;">
+            <div style="font-weight:1100;">Tvoj napredak</div>
             <div class="mascotWrap" aria-label="Crtani likovi">
-              <!-- Simple cute SVG mascots -->
               <div class="mascot" title="Kapibara">
                 <svg viewBox="0 0 160 120" width="96" height="72" aria-hidden="true">
-                  <defs>
-                    <linearGradient id="g1" x1="0" x2="1">
-                      <stop offset="0" stop-color="#7c5cff"/><stop offset="1" stop-color="#ff6bd6"/>
-                    </linearGradient>
-                  </defs>
+                  <defs><linearGradient id="g1" x1="0" x2="1">
+                    <stop offset="0" stop-color="#7c5cff"/><stop offset="1" stop-color="#ff6bd6"/>
+                  </linearGradient></defs>
                   <rect x="0" y="0" width="160" height="120" rx="26" fill="rgba(255,255,255,.03)"/>
                   <circle cx="56" cy="58" r="28" fill="url(#g1)"/>
                   <circle cx="100" cy="58" r="28" fill="#34d399" opacity=".9"/>
@@ -550,14 +625,11 @@
                   <circle cx="116" cy="40" r="6" fill="#4dd3ff"/>
                 </svg>
               </div>
-
               <div class="mascot" title="Donut">
                 <svg viewBox="0 0 160 120" width="96" height="72" aria-hidden="true">
-                  <defs>
-                    <linearGradient id="g2" x1="0" x2="1">
-                      <stop offset="0" stop-color="#ffd166"/><stop offset="1" stop-color="#ff6bd6"/>
-                    </linearGradient>
-                  </defs>
+                  <defs><linearGradient id="g2" x1="0" x2="1">
+                    <stop offset="0" stop-color="#ffd166"/><stop offset="1" stop-color="#ff6bd6"/>
+                  </linearGradient></defs>
                   <rect x="0" y="0" width="160" height="120" rx="26" fill="rgba(255,255,255,.03)"/>
                   <circle cx="80" cy="60" r="34" fill="url(#g2)"/>
                   <circle cx="80" cy="60" r="14" fill="rgba(10,14,34,.96)"/>
@@ -572,14 +644,11 @@
                   <circle cx="50" cy="80" r="4" fill="#ff6bd6"/>
                 </svg>
               </div>
-
               <div class="mascot" title="Boba">
                 <svg viewBox="0 0 160 120" width="96" height="72" aria-hidden="true">
-                  <defs>
-                    <linearGradient id="g3" x1="0" x2="1">
-                      <stop offset="0" stop-color="#4dd3ff"/><stop offset="1" stop-color="#7c5cff"/>
-                    </linearGradient>
-                  </defs>
+                  <defs><linearGradient id="g3" x1="0" x2="1">
+                    <stop offset="0" stop-color="#4dd3ff"/><stop offset="1" stop-color="#7c5cff"/>
+                  </linearGradient></defs>
                   <rect x="0" y="0" width="160" height="120" rx="26" fill="rgba(255,255,255,.03)"/>
                   <rect x="54" y="28" width="52" height="66" rx="18" fill="url(#g3)"/>
                   <rect x="58" y="32" width="44" height="42" rx="14" fill="rgba(255,255,255,.35)"/>
@@ -597,12 +666,24 @@
             </div>
           </div>
 
-          <div class="stat"><b>Mini Kapibara</b><span id="trend1">790 RSD</span></div>
-          <div class="stat"><b>Galaxy Donut</b><span id="trend2">990 RSD</span></div>
-          <div class="stat"><b>Boba Milk Tea</b><span id="trend3">1.190 RSD</span></div>
+          <div class="xpBox">
+            <div class="lvlRow">
+              <div class="lvlLeft">
+                <b>Nivo <span id="lvl">1</span> • XP <span id="xp">0</span>/<span id="xpNeed">100</span></b>
+                <div id="badgeLine">Bedž: Početnik kupac</div>
+              </div>
+              <div class="lvlBadge" id="lvlBadge">POČETNIK</div>
+            </div>
+            <div class="bar" aria-label="XP bar"><i id="barFill"></i></div>
+
+            <div class="lesson" id="lessonBox">
+              <b>Mini lekcija:</b> Pre kupovine pitaj se: “Da li mi se samo sviđa ili mi stvarno treba?”
+              <div class="tag tagGood">Tip: napravi mali budžet i drži ga se</div>
+            </div>
+          </div>
 
           <p class="note" style="margin-top:10px;">
-            Ti samo menjaš slike i cene u listi proizvoda. Sve radi na telefonu.
+            Ti menjaš samo slike, opise i cene u listi proizvoda. Sve ostalo radi samo.
           </p>
         </div>
       </div>
@@ -617,6 +698,9 @@
 
   <!-- Confetti -->
   <div class="confetti" id="confetti"></div>
+
+  <!-- Toast -->
+  <div class="toastHost" id="toastHost" aria-live="polite"></div>
 
   <!-- Backdrop + Drawer -->
   <div class="backdrop" id="backdrop"></div>
@@ -633,8 +717,12 @@
         <span>Ukupno</span>
         <b id="total">0 RSD</b>
       </div>
+      <div class="sumrow">
+        <span>Budžet</span>
+        <b id="budgetLine">—</b>
+      </div>
       <button class="checkout" id="checkoutBtn">Pošalji roditelju (WhatsApp)</button>
-      <p class="note">
+      <p class="note" id="budgetNote">
         Poruka sadrži listu proizvoda i ukupnu cenu. (Nema kartica i nema plaćanja na sajtu.)
       </p>
     </div>
@@ -657,7 +745,7 @@
             <button class="btn" id="madd">Dodaj u korpu</button>
             <button class="btn secondary" id="mclose2">Zatvori</button>
           </div>
-          <p class="note" style="margin-top:10px;">
+          <p class="note" id="mLesson" style="margin-top:10px;">
             Mini lekcija: pre nego što dodaš, pitaj se — da li ti se sviđa, ili ti stvarno treba?
           </p>
         </div>
@@ -670,64 +758,201 @@
    1) TI MENJAŠ OVO
    ========================= */
 const SHOP_NAME = "Caparicki webshop";
-const SHOP_SUB  = " Natina, Ikina, Milina i Lukina Squishy Prodavnica• Nauči kako radi trgovina";
-const CURRENCY  = "Dinara";
+const SHOP_SUB  = "Za klince • Squishy • Nauči kako radi trgovina";
+const CURRENCY  = "RSD";
 
 // WhatsApp broj (bez +), npr. 3816xxxxxxx
 const WHATSAPP_NUMBER = "381600000000";
 
-// PROIZVODI: samo ubaci slike i cene.
+// EDU: dnevni budžet (deca uče budžetiranje)
+const BUDGET_RSD = 2000; // promeni (npr. 1000, 1500, 3000)
+
+// PROIZVODI: ubaci slike i cene.
 // Slike stavi u folder img/ (pored index.html), pa u img upiši npr: "img/kapibara.jpg"
 const PRODUCTS = [
-  { id:"kapibara", name:"Mini Kapibara", price: 790, category:"Životinje", tag:"Hit", img:"", desc:"Mekana kapibara – savršena za stiskanje i opuštanje." },
-  { id:"donut",    name:"Galaxy Donut",   price: 990, category:"Hrana",     tag:"Wow", img:"", desc:"Šareni donut koji izgleda kao iz svemira." },
-  { id:"boba",     name:"Boba Milk Tea",  price: 1190,category:"Boba",      tag:"Top", img:"", desc:"Milk tea sa boba kuglicama — preslatko i cool." },
-  { id:"panda",    name:"Pand Roll",     price: 850, category:"Životinje", tag:"Kul", img:"", desc:"Panda koja je uvek spremna za stiskanje." },
-  { id:"cake",     name:"Jagoda Tortica", price: 1290,category:"Hrana",     tag:"Slatko", img:"", desc:"Tortica sa jagodom — wow efekat za vitrinu." },
-  { id:"rainbow",  name:"Rainbow Mačka",  price: 1390,category:"Fantasy",   tag:"Šareno", img:"", desc:"Duga-mačka. Kad je vidiš, moraš je imati." },
+  { id:"kapibara", name:"Mini Kapibara", price: 790,  rarity:"Rare",   tag:"Hit", img:"img/kapibara.jpg", desc:"Mekana kapibara – savršena za stiskanje i opuštanje." },
+  { id:"donut",    name:"Galaxy Donut",   price: 990,  rarity:"Epic",   tag:"Wow", img:"img/donut.jpg",    desc:"Šareni donut koji izgleda kao iz svemira." },
+  { id:"boba",     name:"Boba Milk Tea",  price: 1190, rarity:"Epic",   tag:"Top", img:"img/boba.jpg",     desc:"Milk tea sa boba kuglicama — preslatko i cool." },
+  { id:"panda",    name:"Panda Roll",     price: 850,  rarity:"Rare",   tag:"Kul", img:"",                desc:"Panda koja je uvek spremna za stiskanje." },
+  { id:"cake",     name:"Jagoda Tortica", price: 1290, rarity:"Legend", tag:"Slatko", img:"",             desc:"Tortica sa jagodom — wow efekat za vitrinu." },
+  { id:"rainbow",  name:"Rainbow Mačka",  price: 1390, rarity:"Legend", tag:"Šareno", img:"",             desc:"Duga-mačka. Kad je vidiš, moraš je imati." },
 ];
 
 /* =========================
    2) LOGIKA (NE DIRAJ)
    ========================= */
 const fmt = new Intl.NumberFormat("sr-RS", { style:"currency", currency: CURRENCY, maximumFractionDigits: 0 });
-const state = { q:"", cat:"Sve", sort:"popular", cart: loadCart() };
+
+const state = {
+  q:"",
+  sort:"popular",
+  cart: loadCart(),
+  xp: loadNum("cap_xp", 0),
+  level: loadNum("cap_lvl", 1),
+  achievements: loadObj("cap_ach", {}),
+  lastLessonIndex: loadNum("cap_lesson_i", 0)
+};
 
 function loadCart(){
   try { return JSON.parse(localStorage.getItem("cap_cart") || "{}"); }
   catch(e){ return {}; }
 }
-function saveCart(){
+function loadNum(k, def){
+  const v = Number(localStorage.getItem(k));
+  return Number.isFinite(v) && v>=0 ? v : def;
+}
+function loadObj(k, def){
+  try { return JSON.parse(localStorage.getItem(k) || JSON.stringify(def)); }
+  catch(e){ return def; }
+}
+function saveAll(){
   localStorage.setItem("cap_cart", JSON.stringify(state.cart));
+  localStorage.setItem("cap_xp", String(state.xp));
+  localStorage.setItem("cap_lvl", String(state.level));
+  localStorage.setItem("cap_ach", JSON.stringify(state.achievements));
+  localStorage.setItem("cap_lesson_i", String(state.lastLessonIndex));
   updateCartCount();
+  updateProgressUI();
 }
-function updateCartCount(){
-  const count = Object.values(state.cart).reduce((a,b)=>a+b,0);
-  document.getElementById("cartCount").textContent = count;
+
+/* ===== Lessons / Achievements ===== */
+const LESSONS = [
+  { title:"Mini lekcija", text:"Pre kupovine pitaj se: “Da li mi se samo sviđa ili mi stvarno treba?”", tag:["Tip: prespavaj 1 noć pa odluči", "good"] },
+  { title:"Mini lekcija", text:"Budžet je plan: ako imaš 2.000 RSD, ne kupuješ za 2.500 RSD.", tag:["Tip: napravi listu želja", "warn"] },
+  { title:"Mini lekcija", text:"Cena nije isto što i vrednost. Vrednost je: koliko ti znači + koliko ćeš koristiti.", tag:["Tip: pitaj: koliko puta ću koristiti?", "good"] },
+  { title:"Mini lekcija", text:"Popust nije magija. Ako nešto ne bi kupio bez popusta, možda ti ne treba ni sa popustom.", tag:["Tip: uporedi pre i posle", "warn"] },
+  { title:"Mini lekcija", text:"Račun (ukupno) = cena × količina. To je super moć za kupovinu.", tag:["Tip: izračunaj u glavi", "good"] },
+];
+
+const BADGES = [
+  { lvl:1, name:"Početnik kupac", label:"POČETNIK" },
+  { lvl:2, name:"Pametan izbor", label:"PAMETAN" },
+  { lvl:3, name:"Šampion budžeta", label:"BUDŽET" },
+  { lvl:4, name:"Trgovac pro", label:"PRO" },
+  { lvl:5, name:"Legenda webshop-a", label:"LEGENDA" },
+];
+
+function xpNeedForLevel(lvl){
+  // postepeno teže: 100, 140, 190, 250, ...
+  return Math.round(80 + lvl*40 + (lvl-1)*(lvl*10));
 }
-function categories(){
-  const set = new Set(PRODUCTS.map(p=>p.category));
-  return ["Sve", ...Array.from(set).sort((a,b)=>a.localeCompare(b,"sr"))];
+
+function giveXP(amount, reason){
+  const beforeLvl = state.level;
+  state.xp += amount;
+
+  let need = xpNeedForLevel(state.level);
+  while(state.xp >= need){
+    state.xp -= need;
+    state.level += 1;
+    need = xpNeedForLevel(state.level);
+    popConfetti(26);
+    toast("LEVEL UP!", `Bravo! Sada si nivo ${state.level}. Nastavi da skupljaš XP!`, `Nivo ${state.level}`);
+    awardBadgeIfAny();
+  }
+
+  saveAll();
+
+  if(reason){
+    toast("+XP", `${reason} (+${amount} XP)`, "Napredak");
+  }
+
+  if(beforeLvl === state.level){
+    // malo confetti i bez level up
+    popConfetti(14);
+  }
 }
+
+function awardOnce(key, title, text){
+  if(state.achievements[key]) return;
+  state.achievements[key] = true;
+  popConfetti(34);
+  toast(title, text, "Bedž");
+  saveAll();
+}
+
+function awardBadgeIfAny(){
+  const b = BADGES.slice().reverse().find(x => state.level >= x.lvl);
+  if(!b) return;
+  // bedž se prikazuje u UI, a “awardOnce” za milestone
+  if(state.level === 2) awardOnce("lvl2","Bedž otključan!", "Pametan izbor: znaš da ne kupuješ impulsivno.");
+  if(state.level === 3) awardOnce("lvl3","Bedž otključan!", "Šampion budžeta: razmišljaš o ukupnoj ceni.");
+  if(state.level === 5) awardOnce("lvl5","Bedž otključan!", "Legenda webshop-a: znaš kako radi korpa i račun.");
+}
+
+function nextLesson(){
+  state.lastLessonIndex = (state.lastLessonIndex + 1) % LESSONS.length;
+  const L = LESSONS[state.lastLessonIndex];
+  const box = document.getElementById("lessonBox");
+  box.innerHTML = `<b>${L.title}:</b> ${L.text}
+    <div class="tag ${L.tag[1]==="good"?"tagGood":L.tag[1]==="warn"?"tagWarn":"tagBad"}">${L.tag[0]}</div>`;
+  saveAll();
+}
+
+/* ===== UI helpers ===== */
+function toast(title, body, pill){
+  const host = document.getElementById("toastHost");
+  const t = document.createElement("div");
+  t.className = "toast";
+  t.innerHTML = `
+    <div class="toastTop">
+      <div class="toastTitle">${escapeHtml(title)}</div>
+      <div class="toastPill">${escapeHtml(pill || "Info")}</div>
+    </div>
+    <div class="toastBody">${escapeHtml(body)}</div>
+  `;
+  host.appendChild(t);
+  setTimeout(()=>{ t.style.opacity="0"; t.style.transform="translateY(10px)"; }, 2600);
+  setTimeout(()=>{ t.remove(); }, 3000);
+}
+
+function popConfetti(pieces=18){
+  const c = document.getElementById("confetti");
+  c.innerHTML = "";
+  c.style.display = "block";
+  const colors = ["#7c5cff","#34d399","#ff6bd6","#ffd166","#4dd3ff"];
+  for(let i=0;i<pieces;i++){
+    const p = document.createElement("i");
+    const left = Math.random()*100;
+    const delay = Math.random()*120;
+    const dur = 650 + Math.random()*520;
+    const size = 7 + Math.random()*9;
+    p.style.left = left+"vw";
+    p.style.top = (-20 - Math.random()*80)+"px";
+    p.style.width = size+"px";
+    p.style.height = (size+4)+"px";
+    p.style.background = colors[Math.floor(Math.random()*colors.length)];
+    p.style.animationDuration = dur+"ms";
+    p.style.animationDelay = delay+"ms";
+    c.appendChild(p);
+  }
+  setTimeout(()=>{ c.style.display="none"; c.innerHTML=""; }, 1200);
+}
+
+function escapeHtml(str){
+  return String(str).replace(/[&<>"']/g, s => ({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+  }[s]));
+}
+
+/* ===== Product filtering/sorting ===== */
 function filtered(){
   let list = PRODUCTS.slice();
   const s = state.q.trim().toLowerCase();
   if(s){
     list = list.filter(p =>
       p.name.toLowerCase().includes(s) ||
-      p.category.toLowerCase().includes(s) ||
-      (p.desc||"").toLowerCase().includes(s)
+      (p.desc||"").toLowerCase().includes(s) ||
+      (p.tag||"").toLowerCase().includes(s)
     );
   }
-  if(state.cat !== "Sve") list = list.filter(p => p.category === state.cat);
-
   if(state.sort === "cheap") list.sort((a,b)=>a.price-b.price);
   if(state.sort === "expensive") list.sort((a,b)=>b.price-a.price);
   if(state.sort === "name") list.sort((a,b)=>a.name.localeCompare(b.name,"sr"));
-
   return list;
 }
 
+/* ===== Render grid ===== */
 function renderGrid(){
   const grid = document.getElementById("grid");
   grid.innerHTML = "";
@@ -742,7 +967,7 @@ function renderGrid(){
     div.style.background="rgba(255,255,255,.05)";
     div.style.color="rgba(243,245,255,.85)";
     div.style.fontWeight="950";
-    div.textContent="Nema rezultata. Probaj drugu pretragu ili kategoriju.";
+    div.textContent="Nema rezultata. Probaj drugu pretragu.";
     grid.appendChild(div);
     return;
   }
@@ -780,16 +1005,11 @@ function renderGrid(){
     name.className="name";
     name.textContent = p.name;
 
-    const tag = document.createElement("div");
-    tag.className="tag";
-    tag.textContent = p.category;
-
     row.appendChild(name);
-    row.appendChild(tag);
 
     const desc = document.createElement("div");
     desc.className="desc";
-    desc.textContent = (p.desc||"").slice(0, 88) + ((p.desc||"").length>88 ? "…" : "");
+    desc.textContent = (p.desc||"").slice(0, 92) + ((p.desc||"").length>92 ? "…" : "");
 
     const price = document.createElement("div");
     price.className="price";
@@ -801,7 +1021,11 @@ function renderGrid(){
     const add = document.createElement("button");
     add.className="add";
     add.textContent="Dodaj";
-    add.onclick = ()=> { addToCart(p.id,1); popConfetti(); };
+    add.onclick = ()=> {
+      addToCart(p.id,1);
+      giveXP(xpFor(p), `Dodao si "${p.name}" u korpu`);
+      eduCheckAfterAdd();
+    };
 
     const details = document.createElement("button");
     details.className="details";
@@ -822,6 +1046,25 @@ function renderGrid(){
   });
 }
 
+/* ===== XP points per item ===== */
+function xpFor(p){
+  const r = (p.rarity||"").toLowerCase();
+  if(r.includes("legend")) return 24;
+  if(r.includes("epic")) return 18;
+  if(r.includes("rare")) return 14;
+  return 10;
+}
+
+/* ===== Cart logic ===== */
+function saveCart(){
+  localStorage.setItem("cap_cart", JSON.stringify(state.cart));
+  updateCartCount();
+  updateBudgetUI();
+}
+function updateCartCount(){
+  const count = Object.values(state.cart).reduce((a,b)=>a+b,0);
+  document.getElementById("cartCount").textContent = count;
+}
 function addToCart(id, delta){
   state.cart[id] = (state.cart[id]||0) + delta;
   if(state.cart[id] <= 0) delete state.cart[id];
@@ -832,6 +1075,15 @@ function removeFromCart(id){
   delete state.cart[id];
   saveCart();
   renderCart();
+}
+function cartTotal(){
+  let total = 0;
+  Object.entries(state.cart).forEach(([id,qty])=>{
+    const p = PRODUCTS.find(x=>x.id===id);
+    if(!p) return;
+    total += p.price * qty;
+  });
+  return total;
 }
 function renderCart(){
   const box = document.getElementById("cartItems");
@@ -851,6 +1103,7 @@ function renderCart(){
     empty.innerHTML = "Korpa je prazna. Dodaj nešto preslatko!";
     box.appendChild(empty);
     document.getElementById("total").textContent = fmt.format(0);
+    updateBudgetUI();
     return;
   }
 
@@ -890,17 +1143,17 @@ function renderCart(){
     const minus = document.createElement("button");
     minus.className="qbtn";
     minus.textContent="–";
-    minus.onclick=()=>addToCart(id,-1);
+    minus.onclick=()=>{ addToCart(id,-1); giveXP(2,"Smanjio si količinu (pametan potez)"); eduCheckAfterAdd(); };
 
     const plus = document.createElement("button");
     plus.className="qbtn";
     plus.textContent="+";
-    plus.onclick=()=>addToCart(id,+1);
+    plus.onclick=()=>{ addToCart(id,+1); giveXP(4,"Povećao si količinu"); eduCheckAfterAdd(); };
 
     const del = document.createElement("button");
     del.className="qbtn";
     del.textContent="×";
-    del.onclick=()=>removeFromCart(id);
+    del.onclick=()=>{ removeFromCart(id); giveXP(6,"Obrisao si item — kontrola budžeta!"); eduCheckAfterAdd(); };
 
     q.appendChild(minus);
     q.appendChild(plus);
@@ -914,8 +1167,46 @@ function renderCart(){
   });
 
   document.getElementById("total").textContent = fmt.format(total);
+  updateBudgetUI();
 }
 
+/* ===== Budget education ===== */
+function updateBudgetUI(){
+  const total = cartTotal();
+  const line = document.getElementById("budgetLine");
+  const note = document.getElementById("budgetNote");
+  line.textContent = `${fmt.format(total)} / ${fmt.format(BUDGET_RSD)}`;
+
+  if(total === 0){
+    note.textContent = "Poruka sadrži listu proizvoda i ukupnu cenu. (Nema kartica i nema plaćanja na sajtu.)";
+    return;
+  }
+
+  if(total <= BUDGET_RSD){
+    note.textContent = "Super! U okviru si budžeta. To je veština kupovine.";
+  } else if(total <= BUDGET_RSD * 1.15){
+    note.textContent = "Malo prelazi budžet. Možeš da izbaciš 1 stvar ili smanjiš količinu.";
+  } else {
+    note.textContent = "Prelazi budžet. Probaj da izabereš 1–2 omiljene stvari umesto sve.";
+  }
+}
+
+function eduCheckAfterAdd(){
+  const total = cartTotal();
+  if(total > 0 && total <= BUDGET_RSD && !state.achievements["budget_ok"]){
+    awardOnce("budget_ok", "Bravo, budžet!", "U okviru si budžeta. To je veština: planiranje.");
+  }
+  if(total > BUDGET_RSD && !state.achievements["budget_over"]){
+    awardOnce("budget_over", "Budžet alarm!", "Prešao si budžet. Nauči: izbaci 1 stvar ili smanji količinu.");
+  }
+  if(Object.keys(state.cart).length >= 3 && !state.achievements["mix3"]){
+    awardOnce("mix3", "Kolekcionar!", "Dodao si 3 različite stvari u korpu. Sada uporedi: šta ti je najvažnije?");
+  }
+  // povremeno menjaj lekciju
+  if(Math.random() < 0.25) nextLesson();
+}
+
+/* ===== Open/close cart ===== */
 function toggleCart(open){
   const d = document.getElementById("drawer");
   const b = document.getElementById("backdrop");
@@ -928,6 +1219,7 @@ function toggleCart(open){
   }
 }
 
+/* ===== Checkout ===== */
 function checkout(){
   const entries = Object.entries(state.cart);
   if(!entries.length){ alert("Korpa je prazna."); return; }
@@ -940,13 +1232,26 @@ function checkout(){
     total += p.price*qty;
     msg += `${encodeURIComponent(p.name)} x${qty} — ${encodeURIComponent(fmt.format(p.price))}%0A`;
   });
+
   msg += `%0AUkupno: ${encodeURIComponent(fmt.format(total))}%0A`;
+  msg += `%0ABudžet: ${encodeURIComponent(fmt.format(BUDGET_RSD))}%0A`;
+
+  if(total <= BUDGET_RSD){
+    msg += `%0APoruka: U okviru budžeta ✅%0A`;
+  } else {
+    msg += `%0APoruka: Preko budžeta ⚠️ (predlog: izbaciti 1 stvar)%0A`;
+  }
+
   msg += `%0AIME I ADRESA: (upišite ovde)`;
 
   const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`;
   window.open(url, "_blank");
+
+  giveXP(18, "Poslao si porudžbinu roditelju");
+  awardOnce("first_order", "Prva porudžbina!", "Bravo! Naučio si kako radi porudžbina i korpa.");
 }
 
+/* ===== Modal ===== */
 function openModal(id){
   const p = PRODUCTS.find(x=>x.id===id);
   if(!p) return;
@@ -971,44 +1276,43 @@ function openModal(id){
 
   const meta = document.getElementById("mmeta");
   meta.innerHTML = "";
-  ["Kategorija: "+p.category, "Cena: "+fmt.format(p.price), "Tag: "+(p.tag||"Squishy")].forEach(t=>{
+  const rarity = p.rarity ? `Rarity: ${p.rarity}` : "Rarity: Common";
+  [rarity, "Cena: "+fmt.format(p.price), "Tag: "+(p.tag||"Squishy")].forEach(t=>{
     const el=document.createElement("div");
     el.className="pill"; el.textContent=t;
     meta.appendChild(el);
   });
 
-  document.getElementById("madd").onclick = ()=>{ addToCart(id,1); popConfetti(); toggleCart(true); closeModal(); };
+  const lessonsMini = [
+    "Mini lekcija: Ako kupiš 2 komada, ukupno je 2 × cena.",
+    "Mini lekcija: “Najjeftinije” nije uvek najbolje — važno je koliko ti znači.",
+    "Mini lekcija: Napravi listu ‘želim’ i ‘treba’ — to je pametna kupovina."
+  ];
+  document.getElementById("mLesson").textContent = lessonsMini[Math.floor(Math.random()*lessonsMini.length)];
+
+  document.getElementById("madd").onclick = ()=>{
+    addToCart(id,1);
+    giveXP(xpFor(p), `Dodao si "${p.name}" iz detalja`);
+    toggleCart(true);
+    closeModal();
+  };
+
   bg.style.display="flex";
 }
 function closeModal(){ document.getElementById("modalBg").style.display="none"; }
 
-function popConfetti(){
-  const c = document.getElementById("confetti");
-  c.innerHTML = "";
-  c.style.display = "block";
+/* ===== Progress UI ===== */
+function updateProgressUI(){
+  const need = xpNeedForLevel(state.level);
+  document.getElementById("lvl").textContent = state.level;
+  document.getElementById("xp").textContent = state.xp;
+  document.getElementById("xpNeed").textContent = need;
+  const pct = Math.max(0, Math.min(100, Math.round((state.xp/need)*100)));
+  document.getElementById("barFill").style.width = pct + "%";
 
-  const colors = ["#7c5cff","#34d399","#ff6bd6","#ffd166","#4dd3ff"];
-  const pieces = 20;
-
-  for(let i=0;i<pieces;i++){
-    const p = document.createElement("i");
-    const left = Math.random()*100;
-    const delay = Math.random()*120;
-    const dur = 650 + Math.random()*500;
-    const size = 8 + Math.random()*8;
-
-    p.style.left = left+"vw";
-    p.style.top = (-20 - Math.random()*80)+"px";
-    p.style.width = size+"px";
-    p.style.height = (size+4)+"px";
-    p.style.background = colors[Math.floor(Math.random()*colors.length)];
-    p.style.animationDuration = dur+"ms";
-    p.style.animationDelay = delay+"ms";
-
-    c.appendChild(p);
-  }
-
-  setTimeout(()=>{ c.style.display="none"; c.innerHTML=""; }, 1100);
+  const b = BADGES.slice().reverse().find(x => state.level >= x.lvl) || BADGES[0];
+  document.getElementById("badgeLine").textContent = "Bedž: " + b.name;
+  document.getElementById("lvlBadge").textContent = b.label;
 }
 
 function init(){
@@ -1016,44 +1320,37 @@ function init(){
   document.getElementById("shopSub").textContent = SHOP_SUB;
   document.getElementById("year").textContent = new Date().getFullYear();
 
-  // Fill categories
-  const cat = document.getElementById("cat");
-  cat.innerHTML = "";
-  categories().forEach(c=>{
-    const o=document.createElement("option");
-    o.value=c; o.textContent=c;
-    cat.appendChild(o);
-  });
-
-  // Trend prices (if at least 3 products)
-  if(PRODUCTS[0]) document.getElementById("trend1").textContent = fmt.format(PRODUCTS[0].price);
-  if(PRODUCTS[1]) document.getElementById("trend2").textContent = fmt.format(PRODUCTS[1].price);
-  if(PRODUCTS[2]) document.getElementById("trend3").textContent = fmt.format(PRODUCTS[2].price);
-
-  // Controls
+  // controls
   document.getElementById("q").addEventListener("input", e=>{ state.q=e.target.value; renderGrid(); });
-  cat.addEventListener("change", e=>{ state.cat=e.target.value; renderGrid(); });
-
-  const sort = document.getElementById("sort");
-  sort.addEventListener("change", e=>{ state.sort=e.target.value; renderGrid(); });
-
+  document.getElementById("sort").addEventListener("change", e=>{ state.sort=e.target.value; renderGrid(); });
   document.getElementById("scrollShop").onclick = ()=> document.getElementById("grid").scrollIntoView({behavior:"smooth"});
 
-  // Cart
+  // cart open/close
   document.getElementById("openCart").onclick = ()=>{ renderCart(); toggleCart(true); };
   document.getElementById("closeCart").onclick = ()=> toggleCart(false);
   document.getElementById("backdrop").onclick = ()=> toggleCart(false);
-
   document.getElementById("checkoutBtn").onclick = ()=> checkout();
 
-  // Modal close
+  // modal close
   document.getElementById("closeModal").onclick = ()=> closeModal();
   document.getElementById("mclose2").onclick = ()=> closeModal();
   document.getElementById("modalBg").addEventListener("click", (e)=>{ if(e.target.id==="modalBg") closeModal(); });
 
+  // initial lesson and UI
+  nextLesson();
+  updateBudgetUI();
   updateCartCount();
+  updateProgressUI();
+
   renderGrid();
   renderCart();
+
+  // welcome toast once
+  if(!state.achievements["welcome"]){
+    state.achievements["welcome"] = true;
+    saveAll();
+    toast("Dobrodošao!", "Ovo je shop-igrica: učiš korpu, budžet i račun. Dodaj nešto u korpu da dobiješ XP!", "Start");
+  }
 }
 
 init();
